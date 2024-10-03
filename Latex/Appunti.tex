@@ -61,9 +61,9 @@ Ogni numero complesso $z\in \mathbb{C}$ può essere scritto come $z=a+ib$, con $
 \begin{equation*}
     z\cdot w = (ac-bd) + i(ad+bc)
 \end{equation*}
-Per ogni $z\in \mathbb{C}$, $z\cdot z*=a^{2}+b^{2}$ è reale e non negativo. Inoltre, $\sqrt{a^{2}+b^{2}}=\lvert z\rvert$ è detto \textbf{modulo} di $z$.
+Per ogni $z\in \mathbb{C}$, $z\cdot z^{*}=a^{2}+b^{2}$ è reale e non negativo dove $z^{*}$ è il \textbf{complesso coniugato} di $z$ (la parte complessa è negata). Inoltre, $\sqrt{a^{2}+b^{2}}=\lvert z\rvert$ è detto \textbf{modulo} di $z$.
 \begin{equation*}
-    \lvert z\rvert^{2} = z\cdot z*
+    \lvert z\rvert^{2} = z\cdot z^{*}
 \end{equation*}
 Possiamo rappresentare un numero complesso $z=a+ib$ come una coppia (a,b) sul piano complesso. L'asse delle ascisse è utilizzato per la parte reale e l'asse delle ordinate per la parte immaginaria. Si ha $a = \lvert z \rvert \cos \theta$ e $b = \lvert z \rvert \sin \theta$ dove $\theta$ è la \textbf{fase}. Se $z=0$ allora $\theta$ non è definita. Per $\lvert z \rvert = 1, z=\cos\theta + i\sin\theta$. Più in generale possiamo scrivere $z=pe^{i\theta}$ con $p=\lvert z \rvert$ e $e^{i\theta}=\cos\theta + i\sin\theta$.
 \subsection{Spazi vettoriali in 2D}
@@ -78,4 +78,93 @@ L'insieme di tutti i vettori del piano è allora uno spazio vettoriale reale $V$
     u = \alpha v + \beta w
 \end{equation*}
 Per ogni vettore $u$ e $v \in V$ e per ogni $\alpha, \beta \in \mathbb{R}$.
+\subsection{Prodotto scalare e componenti}
+\begin{equation*}
+    < \cdot, \cdot > : V \times V \rightarrow \mathbb{C}
+\end{equation*}
+Che soddisfa le seguenti proprietà:
+\begin{enumerate}
+    \item $\forall u\in V, <u,u>$ è un numero reale non negativo, con $<u,u>=0 \iff u=0$
+    \item $\forall u,v \in V, <u,v>=<v,u>^{*}$
+    \item $\forall u,v,w \in V,\forall \alpha,\beta \in \mathbb{C}, <w,\alpha u+\beta v>=\alpha<w,u>+\beta<w,v>$
+\end{enumerate}
+Due vettori per i quali il prodotto scalare è nullo sono \textit{ortogonali}, sono base ortogonali se sono ortogonali e a norma unitaria ($\lVert <\cdot,\cdot>\rVert_{2}=1$).\\
+Inoltre riscrivendo $u=u_{0}v_{0}+u_{1}v_{1}$ si ha:
+\begin{equation*}
+    <u,u>=<u_{0}v_{0}+u_{1}v_{1},u_{0}v_{0}+u_{1}v_{1}>=u_{0}^{2}+u_{1}^{2}
+\end{equation*}
+Dove $u_{0}=<u,v_{0}>$ e $u_{1}=<u,v_{1}>$
+\subsection{Vettori ket e bra}
+\begin{itemize}
+    \item \textbf{Ket}: vettore $u \rightarrow |u\rangle$
+    \item \textbf{Bra}: vettore $u \rightarrow \langle u|$
+\end{itemize}
+Usando questa notazione il prodotto scalare si forma con \textit{braket}:
+\begin{equation*}
+    <u,v>=\langle u|v\rangle
+\end{equation*}
+Usando la scomposizione di $v$ in componenti:
+\begin{itemize}
+    \item $|v\rangle = u_{0}|v_{0}\rangle + u_{1}|v_{1}\rangle$
+    \item $\langle v| = u_{0}^{*}\langle v_{0}| + u_{1}^{*}\langle v_{1}|$
+\end{itemize}
+\subsubsection{Delta di Kronecker}
+\begin{equation*}
+    <v_{i},v_{j}> = \delta_{ij} = \begin{cases}
+        1 & \text{se } i=j \\
+        0 & \text{se } i\neq j
+    \end{cases}
+\end{equation*}
+Usando queste notazioni possiamo scrivere il prodotto scalare come:
+\begin{equation*}
+    \begin{split}
+        \langle v|v\rangle & = (u_{0}^{*}\langle v_{0}| + u_{1}^{*}\langle v_{1}|)\cdot (u_{0}|v_{0}\rangle + u_{1}|v_{1}\rangle) \\
+        & = |u_{0}|^{2} \langle v_{0}|v_{0}\rangle + u_{0}^{*}u_{1}\langle v_{0}|v_{1}\rangle + u_{1}^{*}u_{0}\langle v_{1}|v_{0}\rangle + |u_{1}|^{2}\langle v_{1}|v_{1}\rangle \\
+        & = |u_{0}|^{2}\cdot 1 + u_{0}^{*}u_{1} \cdot 0 + u_{1}^{*}u_{0} \cdot 0 + |u_{1}|^{2} \cdot 1 \\
+        & = |u_{0}|^{2} + |u_{1}|^{2} \\
+        & = | |v\rangle |^{2}
+    \end{split}
+\end{equation*}
+\subsection{Prodotto tensore}
+Consideriamo ora due spazi vettoriali $V$ e $W$ con basi, rispettivamente, $A=\left\{|\alpha_{1}\rangle_{V},\ldots,|\alpha_{n}\rangle_{V}\right\}$ e $B=\left\{|\beta_{1}\rangle_{W},\ldots,|\beta_{m}\rangle_{W}\right\}$. Da questa scrittura deduciamo che $V$ è uno spazio vettoriale di dimensione $n$ e $W$ di dimensione $m$.\\
+Il prodotto tendore di $V$ e $W$ viene indicato con $V\otimes W$ ha dimensione $\dim(V\otimes W)=n\text{ }m$  con la base costituita da $n\text{ }m$ elementi della forma $|\alpha_{i}\rangle_{V}\otimes|\beta_{j}\rangle_{W}$.\\
+\textbf{La notazione $|\alpha_{i}\rangle_{V}\otimes|\beta_{j}\rangle_{W}$ può essere scritta come $|\alpha_{i}\beta_{j}\rangle$}.\\
+Proprietà:
+\begin{enumerate}
+    \item $\forall \ket{v},\ket{v'} \in V, \ket{w} \in W \quad (\ket{v}+\ket{v'})\otimes\ket{w} = \ket{v}\otimes\ket{w}+\ket{v'}\otimes\ket{w}$
+    \item $\forall\ket{v}\in V, \ket{w},\ket{w'}\in W \quad \ket{v}\otimes (\ket{w}+\ket{w'})=\ket{v}\otimes\ket{w}+\ket{v}\otimes\ket{w'}$
+    \item $\forall\ket{v}\in V,\ket{w}\in W,\alpha \in \mathbb{C} \quad (\alpha\ket{v})\otimes\ket{w}=\ket{v}\otimes(\alpha\ket{w})=\alpha(\ket{v}\otimes\ket{w})$
+\end{enumerate}
+Se $V$ e $W$ ammettono prodotto scalare, allora $V\otimes W$ ammette un prodotto scalare definito come:
+\begin{equation*}
+    \braket{u}{u'}=(\bra{v}\otimes\bra{w})\cdot(\ket{v'}\otimes\ket{w'})=\braket{v}{v'}\cdot\braket{w}{w'} \in \mathbb{C}
+\end{equation*}
+Alcune "proprietà":
+\begin{enumerate}
+    \item $(\bra{\alpha_{1}}\otimes\bra{\beta_{2}})\cdot(\ket{\alpha_{1}}\otimes\ket{\beta_{2}}) = \braket{\alpha_{1}}{\alpha_{1}}\cdot\braket{\beta_{2}}{\beta_{2}}=1$
+    \item $\left\{\ket{\alpha_{i}}\otimes\ket{\beta_{j}}\right\}$ è una base ortonormale $V\otimes W$ \begin{itemize}
+        \item Se $\braket{\alpha_{i}}{\alpha_{k}}\cdot\braket{\beta_{j}}{\beta_{l}}=1 \rightarrow \text{normalizzati}$
+        \item Se $\braket{\alpha_{i}}{\alpha_{k}}\cdot\braket{\beta_{j}}{\beta_{l}}=0 \rightarrow \text{ortogonali}$
+    \end{itemize}
+\end{enumerate}
+\subsubsection{Esempio}
+$\ket{v} = a\ket{\alpha_{1}}_{V}+b\ket{a_{2}}_{V}\in V$\\
+$\ket{w} = c\ket{\beta_{1}}_{W}+d\ket{\beta_{2}}_{W}\in W$ 
+\begin{equation*}
+    \begin{split}
+        \ket{v}\otimes\ket{w} & = (a\ket{\alpha_{1}}_{V}+b\ket{\alpha_{2}}_{V})\otimes(c\ket{\beta_{1}}_{W}+d\ket{\beta_{2}}_{W}) \\
+        & = ac(\ket{\alpha_{1}}_{V}\otimes\ket{\beta_{1}}_{W})+ad(\ket{\alpha_{1}}_{V}\otimes\ket{\beta_{2}}_{W})+bc(\ket{\alpha_{2}}_{V}\otimes\ket{\beta_{1}}_{W})+bd(\ket{\alpha_{2}}_{V}\otimes\ket{\beta_{2}}_{W}) \\
+        \bra{v}\otimes\bra{w} & = (a\bra{\alpha_{1}}_{V}+b\bra{\alpha_{2}}_{V})\otimes(c\bra{\beta_{1}}_{W}+d\bra{\beta_{2}}_{W}) \\
+        & = ac(\bra{\alpha_{1}}_{V}\otimes\bra{\beta_{1}}_{W})+ad(\bra{\alpha_{1}}_{V}\otimes\bra{\beta_{2}}_{W})+bc(\bra{\alpha_{2}}_{V}\otimes\bra{\beta_{1}}_{W})+bd(\bra{\alpha_{2}}_{V}\otimes\bra{\beta_{2}}_{W})
+    \end{split}
+\end{equation*}
+\footnotesize
+\begin{equation*}
+    \begin{split}
+        (\bra{v}\otimes\bra{w})\cdot(\ket{v}\otimes\ket{w}) & = [(a\bra{\alpha_{1}}_{V}+b\bra{\alpha_{2}}_{V})\otimes(c\bra{\beta_{1}}_{W}+d\bra{\beta_{2}}_{W})]\cdot[(a\ket{\alpha_{1}}_{V}+b\ket{\alpha_{2}}_{V})\otimes(c\ket{\beta_{1}}_{W}+d\ket{\beta_{2}}_{W})] \\
+        & = \\
+        & = (|a|^{2}+|b|^{2})\cdot(|c|^{2}+|d|^{2})
+    \end{split}
+\end{equation*}
+\normalsize
 \end{document}
