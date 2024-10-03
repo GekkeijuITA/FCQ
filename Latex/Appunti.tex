@@ -167,4 +167,21 @@ $\ket{w} = c\ket{\beta_{1}}_{W}+d\ket{\beta_{2}}_{W}\in W$
     \end{split}
 \end{equation*}
 \normalsize
+\subsection{Operatori lineari}
+Gli operatori lineari in generale sono tali che agendo su un vettore dello spazio lineare danno un altro vettore dello stesso spazio: $O:V\rightarrow V$. Usando la notazione braket possiamo scrivere \begin{equation*}
+    O\ket{v}=\ket{w}
+\end{equation*}
+Scegliamo una base (ortonormale) dello spazio vettoriale $\left\{\ket{\alpha_{1}},\ldots,\ket{\alpha_{n}}\right\}$, l'elemento della matrice $O$ in posizione $(i,j)$ sarà $O_{ij}=\bra{\alpha_{i}}\cdot(O\ket{\alpha_{j}})$
+\subsubsection{Esempio}
+Voglio calcolare $O_{12}$:
+\begin{equation*}
+    \begin{split}
+        O_{12} & =\bra{\alpha_{1}}\left(\sum_{ij}^{n}O_{ij}\ket{\alpha_{i}}\bra{\alpha_{j}}\right)\ket{\alpha_{2}}\\
+        & = \sum_{ij}^{n} O_{ij}\braket{\alpha_{1}}{\alpha_{i}}\braket{\alpha_{j}}{\alpha_{2}} \\
+        & = O_{12}
+    \end{split}
+\end{equation*}
+Grazie al delta di Kronecker.
+\subsection{Autovalori e Autovettori}
+Diremo che se $O\ket{v}=\lambda\ket{v}$ per un vettore non nullo $\ket{v}$, diremo che $v$ è un \textbf{autovettore} di O e $\lambda$ è l'\textbf{autovalore} corrispondente.
 \end{document}
