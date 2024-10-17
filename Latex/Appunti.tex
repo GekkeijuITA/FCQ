@@ -8,7 +8,7 @@
 \customTitlePage{Fondamenti di Computazione Quantistica}{Lorenzo Vaccarecci}{Anno Accademico 2024/2025}{Università degli Studi di Genova}
 \newpage
 \tableofcontents
-\chapter{Introduzione}
+\chapter{Fisica della computazione}
 \section{Porte logiche universali}
 \begin{itemize}
     \item \texttt{NOT(A)} $\equiv \bar{A}$
@@ -52,6 +52,7 @@ A una stringa di $n$ bit possiamo associare un intero compreso fra 0 e $N-1$ con
 E' anche chiamato prodotto \texttt{AND} bitwise perchè si ottiene prendendo le operazioni \texttt{AND} fra i singoli bit.
 \subsection{Somma bit-per-bit: bitwise \texttt{XOR}}
 Indichiamo con $x\oplus z$ la somma bit-per bit, modulo 2. Il risultato questa volta è una stringa il cui $i$-esimo bit ha il valore $x_{i}+z_{i} \mod 2 = x_{i} \text{ \texttt{XOR} } z_{i}$.
+\chapter{Apparato matematico}
 \section{Prerequisiti matematici}
 \subsection{Numeri complessi}
 Ogni numero complesso $z\in \mathbb{C}$ può essere scritto come $z=a+ib$, con $a\in \mathbb{R}$ \textbf{parte reale} e $b\in \mathbb{R}$ \textbf{parte immaginaria}. Se $z=a+ib$ e $w=c+id$, abbiamo
@@ -184,4 +185,95 @@ Voglio calcolare $O_{12}$:
 Grazie al delta di Kronecker.
 \subsection{Autovalori e Autovettori}
 Diremo che se $O\ket{v}=\lambda\ket{v}$ per un vettore non nullo $\ket{v}$, diremo che $v$ è un \textbf{autovettore} di O e $\lambda$ è l'\textbf{autovalore} corrispondente.
+\chapter{Introduzione ai fenomeni quantistici}
+Un osservabile fisico può essere associato ad un operatore Hermittiano $\phi$ da cui possiamo ottenere i loro autovalori e autovettori. Il punto fondamentale di questa discussione è che la base, gli autovalori e il risultato dipende dall'osservabile che vogliamo misurare.
+\section{Regole dal postulato della misura}
+\begin{enumerate}
+    \item Se vogliamo misurare un osservabile $\phi$, dobbiamo conoscere i suoi autovalori $\{\phi_{i}\}$ e autovettori $\{\ket{\phi_{i}}\}$; cioè gli stati tali che $\phi\ket{\phi_{i}}=\phi_{i}\ket{\phi_{i}}$. Gli autovettori saranno la base su cui decomporre lo stato del nostro sistema. Ovvero dobbiamo scrivere $\ket{a}=\sum_{i}a_{i}\ket{\phi_{i}}$ con $a_{i}=\braket{\phi_{i}}{a}$.
+    \item La misura avrà come risultato l'autovalore $\phi_{i}$ con probabilità $|a_{i}|^{2}$.
+    \item Dopo la misura, il sistema si troverà nello stato $\ket{\phi_{i}}$ associato all'autovalore misurato.
+\end{enumerate}
+Stati quantistici sono normalizzati:
+\begin{equation*}
+    \sum_{i=1}^{N}|a_{i}|^{2}=1
+\end{equation*}
+\section{Fase globale e relativa}
+\subsection{Fase globale}
+Consideriamo i vettori $\ket{u}$ e $e^{i\phi}\ket{u}$ che hanno lo stesso modulo ma differiscono per una fase globale $\phi$. Il calcolo delle probabilità dei risultati di una qualunque misura fornisce sempre gli stessi valori.\\
+Sia $\ket{u}\sum_{i}\alpha_{i}\ket{\phi_{i}}$ dove $\{\ket{\phi_{i}}\}$ formano una base ortonormale dello spazio vettoriale. Lo stato con una fase globale si scriverà $e^{i\phi}\ket{u}=\sum_{i}e^{i\phi}\alpha_{i}\ket{\phi_{i}}$
+\subsubsection{Esempio di fase globale/relativa}
+\begin{equation*}
+    \tikzmark{ephi}e^{i\phi}\frac{(\ket{0}+\tikzmark{ephigamma}e^{i(\gamma - \phi)}\ket{1})}{\sqrt{2}}
+\end{equation*}
+\begin{tikzpicture}[overlay, remember picture]
+    \node (ephi-desc) [below of= ephi] {Fase globale};
+    \draw[<-] (ephi.south)++(.25em,-.5ex) -- (ephi-desc);
+    \node (ephigamma-desc) [above of= ephigamma] {Fase relativa};
+    \draw[<-] (ephigamma.north)++(.25em,2ex) -- (ephigamma-desc);
+\end{tikzpicture}
+\section{Stati a molti qubit}
+\begin{itemize}
+    \item \textbf{Base del qubit}: $\{\ket{0},\ket{1}\}$
+    \item \textbf{Stato}: $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$
+\end{itemize}
+Consideriamo:
+\begin{equation}
+    \begin{split}
+        &\text{A: } \ket{\psi} = \alpha\ket{0}+\beta\ket{1} \\
+        &\text{B: } \ket{\phi} = \gamma\ket{0}+\delta\ket{1}
+    \end{split}
+\end{equation}
+La base $B$ la otteniamo con:
+\begin{equation*}
+    \begin{split}
+        \ket{\psi}\oplus\ket{\phi} &= \left(\alpha\ket{0}+\beta\ket{1}\right)\oplus\left(\gamma\ket{0}+\delta\ket{1}\right)\\
+        &= \alpha\gamma\ket{00}+\alpha\delta\ket{01}+\beta\gamma\ket{10}+\beta\delta\ket{11}
+    \end{split}
+\end{equation*}
+Per ricavare la base ci fermiamo al secondo passaggio, quindi avremo $B:\left\{\ket{00},\ket{01},\ket{10},\ket{11}\right\}$.
+\subsection{Stati a due qubit separabili}
+Usando $\ket{\psi}$ e $\ket{\phi}$ (3.1), a volte conviene scrivere lo stato come:
+\begin{equation*}
+    \ket{\psi}\oplus\ket{\phi} = \alpha\ket{0} \oplus \left(\gamma\ket{0}+\delta\ket{1}\right) + \beta\ket{1} \oplus \left(\gamma\ket{0}+\delta\ket{1}\right)
+\end{equation*}
+Perchè in questo modo si possono determinare le probabilità di collasso in modo più semplice:
+\begin{equation*}
+    \begin{cases}
+        \text{Se collassa $\alpha$: } |\alpha|^{2},\phi_{0} \rightarrow \ket{0}\oplus\left(\gamma\ket{0}+\delta\ket{1}\right) = \begin{cases}
+            \text{Se collassa $\gamma$: } |\gamma|^{2},\phi_{0}\rightarrow \ket{00}\\
+            \text{Se collassa $\delta$: } |\delta|^{2},\phi_{1}\rightarrow \ket{01}
+        \end{cases}\\
+        \text{Se collassa $\beta$: } |\beta|^{2},\phi_{1} \rightarrow \ket{1}\oplus\left(\gamma\ket{0}+\delta\ket{1}\right) = \begin{cases}
+            \text{Se collassa $\gamma$: } |\gamma|^{2},\phi_{0}\rightarrow \ket{10}\\
+            \text{Se collassa $\delta$: } |\delta|^{2},\phi_{1}\rightarrow \ket{11}
+        \end{cases}\\
+    \end{cases}
+\end{equation*}
+\subsubsection{Esempio}
+\begin{equation*}
+    \begin{split}
+        \ket{\varepsilon} &= \frac{1}{\sqrt{2}}\left(\ket{01}+\ket{10}\right) ?= \ket{\psi} \oplus \ket{\phi} \\
+        &= \frac{1}{\sqrt{2}}\left(\ket{01}\right) + \frac{1}{\sqrt{2}}\left(\ket{10}\right) = \begin{cases}
+            \text{Se collassa $\ket{01}$: } \frac{1}{2}, \phi_{0} \rightarrow \ket{01} \rightarrow 1,\phi_{0} \rightarrow \ket{01}\\
+            \text{Se collassa $\ket{10}$: } \frac{1}{2}, \phi_{1} \rightarrow \ket{10} \rightarrow 1,\phi_{1} \rightarrow \ket{10}
+        \end{cases}
+    \end{split}
+\end{equation*}
+Possiamo dedurre che se A misura 0, B misura 1 e viceversa.
+\subsection{Stati a due qubit entangled}
+Gli elementi dello spazio vettoriale $A\oplus B$ non sono tutti ottenibili come prodotto tensoriale di due elementi di $A$ e $B$. \\
+Un esempio di stati entangled sono gli stati di Bell:
+\begin{equation*}
+    \begin{split}
+        &\ket{\phi^{+}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\oplus\ket{0}_{B}+\ket{1}_{A}\oplus\ket{1}_{B}\right) \\
+        &\ket{\phi^{-}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\oplus\ket{0}_{B}-\ket{1}_{A}\oplus\ket{1}_{B}\right) \\
+        &\ket{\psi^{+}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\oplus\ket{1}_{B}+\ket{1}_{A}\oplus\ket{0}_{B}\right) \\
+        &\ket{\psi^{-}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\oplus\ket{1}_{B}-\ket{1}_{A}\oplus\ket{0}_{B}\right) \\
+    \end{split}
+\end{equation*}
+Per descrivere lo stato di un sistema a due qubit possiamo alternativamente usare la base canonica $\left\{\ket{00},\ket{01},\ket{10},\ket{11}\right\}$ o la base di Bell $\left\{\ket{\phi^{+}},\ket{\phi^{-}},\ket{\psi^{+}},\ket{\psi^{-}}\right\}$.
+\begin{equation*}
+    O = \lambda_{0}\ket{\phi^{+}}\braket{\phi^{+}}[+\lambda_{1}]{\phi^{-}}\braket{\phi^{-}}[+\lambda_{2}]{\psi^{+}}\braket{\psi^{+}}[+\lambda_{3}]{\psi^{-}}\bra{\psi^{-}}
+\end{equation*}
+Quindi se il sistema si trova in uno stato di Bell, una misura dell'operatore $O$ darà con certezza l'autovalore corrispondente.
 \end{document}
