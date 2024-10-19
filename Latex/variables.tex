@@ -17,6 +17,7 @@
 \newcommand{\tikzmark}[1]{\tikz[baseline,remember picture] \coordinate (#1) {};}
 \newcommand{\bra}[1]{\langle #1 |}
 \newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\customfbox}[1]{\vspace{1em}\noindent\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{\centering #1}}\vspace{1em}}
 \ExplSyntaxOn
 \NewDocumentCommand{\braket}{m O{} m}{ \langle #1 | \tl_if_blank:nTF {#2} {#3} {#2|#3} \rangle }
 \ExplSyntaxOff

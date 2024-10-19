@@ -67,6 +67,9 @@ Per ogni $z\in \mathbb{C}$, $z\cdot z^{*}=a^{2}+b^{2}$ è reale e non negativo d
     \lvert z\rvert^{2} = z\cdot z^{*}
 \end{equation*}
 Possiamo rappresentare un numero complesso $z=a+ib$ come una coppia (a,b) sul piano complesso. L'asse delle ascisse è utilizzato per la parte reale e l'asse delle ordinate per la parte immaginaria. Si ha $a = \lvert z \rvert \cos \theta$ e $b = \lvert z \rvert \sin \theta$ dove $\theta$ è la \textbf{fase}. Se $z=0$ allora $\theta$ non è definita. Per $\lvert z \rvert = 1, z=\cos\theta + i\sin\theta$. Più in generale possiamo scrivere $z=pe^{i\theta}$ con $p=\lvert z \rvert$ e $e^{i\theta}=\cos\theta + i\sin\theta$.
+\begin{equation*}
+    i*(-i) = -1
+\end{equation*}
 \subsection{Spazi vettoriali in 2D}
 \begin{itemize}
     \item \textbf{Direzione}: rappresentata dalla retta su cui giace il vettore
@@ -276,4 +279,105 @@ Per descrivere lo stato di un sistema a due qubit possiamo alternativamente usar
     O = \lambda_{0}\ket{\phi^{+}}\braket{\phi^{+}}[+\lambda_{1}]{\phi^{-}}\braket{\phi^{-}}[+\lambda_{2}]{\psi^{+}}\braket{\psi^{+}}[+\lambda_{3}]{\psi^{-}}\bra{\psi^{-}}
 \end{equation*}
 Quindi se il sistema si trova in uno stato di Bell, una misura dell'operatore $O$ darà con certezza l'autovalore corrispondente.
+\section{Trasformazioni unitarie}
+Sia $\ket{a} = \alpha\ket{x_{0}}+\beta\ket{x_{1}}$, una trasformazione  unitaria $U$ è
+\begin{itemize}
+    \item \textbf{Lineare}: $U\ket{a}=U(\alpha\ket{x_{0}}+\beta\ket{x_{1}}) = \alpha U\ket{x_{0}}+\beta U\ket{x_{1}}$
+    \item \textbf{Invertibile  con l'inversa uguale alla trasposta coniugata}: $U^{-1}\ket{a}=U^{\dagger}\ket{a}$
+\end{itemize}
+Quest'ultima proprietà garantice che le trasformazioni unitarie laasciano invariati i prodotti scalari, e quindi anche la norma dei vettori su cui agiscono e le probabilità associate alle misure. Infatti, prendiamo due stati $\ket{a}$ e $\ket{b}$ con prodotto scalare $\braket{b}{a}$. Se questi evolvono secondo un operatore unitario $U$ avremo $\ket{a'}=U\ket{a}$ e $\ket{b'}=U\ket{b}$ ($\bra{b'}=\bra{b}U^{\dagger}$), il prodotto scalare degli stati evoluti sarà $\braket{b'}{a'}=\braket{b}[U^{\dagger}U]{a}=\braket{b}{a}$ perchè $U^{\dagger}U=\text{Identità}$.
+\subsection{Porte quantistiche}
+\subsubsection{Trasformazioni di Pauli}
+Nel nostro caso scegliamo la base canonica $\left\{\ket{0},\ket{1}\right\}$ e definiamo, oltre all'identità $Id$, le tre trasformazioni di Pauli $X,Y,Z$:
+\begin{equation*}
+    \begin{alignedat}{2}
+        Id\ket{0} &\,:=\, \ket{0} \quad & Id\ket{1} &\,:=\, \ket{1} \\
+        X\ket{0}  &\,:=\, \ket{1} \quad & X\ket{1}  &\,:=\, \ket{0} \\
+        Y\ket{0}  &\,:=\,-i\ket{1} \quad & Y\ket{1} &\,:=\, i\ket{0} \\
+        Z\ket{0}  &\,:=\,-\ket{0} \quad & Z\ket{1} &\,:=\, \ket{1}
+    \end{alignedat}
+\end{equation*}
+Analizzando l'effetto degli operatori, si nota che nella base canonica, $X$ corrisponde al \texttt{NOT} tra bit classici. L'operatore $Z$ genera un cambio della fase relativa e, infine, l'operatore $Y$ può essere visto come una combinazione dei due precedenti dato che $Y=-iXZ$.\\
+\textbf{Esempio}
+\begin{equation*}
+    \begin{split}
+        Z\left(\alpha\ket{0}+\beta\ket{1}\right) &= \alpha Z\ket{0}+\beta Z\ket{1} \\
+        &= -\alpha\ket{0}+\beta\ket{1}
+    \end{split}
+\end{equation*}
+\subsubsection{Trasformazioni di Hadamard}
+\begin{equation*}
+    \begin{split}
+        H\ket{0} &= \ket{+} = \frac{(\ket{0}+\ket{1})}{\sqrt{2}} \\
+        H\ket{1} &= \ket{-} = \frac{(\ket{0}-\ket{1})}{\sqrt{2}}
+    \end{split}
+\end{equation*}
+In forma matriciale (nella base canonica $\left\{\ket{0},\ket{1}\right\}$) l'operatore di Hadarmard si scrive come:
+\begin{equation*}
+    H = \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1 & 1 \\
+        -1 & 1
+    \end{pmatrix}
+\end{equation*}
+\subsubsection{Controlled-NOT}
+Consideriamo ora, il controlled-NOT, \texttt{CNOT}, una trasformazione che agisce su 2 qubit, $A$ e $B$. Nella base canonica l'azione del \texttt{CNOT} é:
+\begin{equation*}
+    \begin{split}
+        CNOT \ket{0}_{A}\oplus \ket{0}_{B} &= \ket{0}_{A}\oplus \ket{0}_{B} \\
+        CNOT \ket{0}_{A}\oplus \ket{1}_{B} &= \ket{0}_{A}\oplus \ket{1}_{B} \\
+        CNOT \ket{1}_{A}\oplus \ket{0}_{B} &= \ket{1}_{A}\oplus \ket{1}_{B} \\
+        CNOT \ket{1}_{A}\oplus \ket{1}_{B} &= \ket{1}_{A}\oplus \ket{0}_{B} 
+    \end{split}
+\end{equation*}
+In linea generale possiamo scrivere il \texttt{CNOT} come:
+\begin{equation*}
+    C_{i}NOT_{j}
+\end{equation*}
+Dove $i$ è il qubit di controllo e $j$ il qubit target. Se il qubit di controllo è acceso allora applica un \texttt{NOT} al qubit target.\\
+L'importanza dell'operatore \texttt{CNOT} risiede nel fatto che può generare entanglement fra due qubit.\\
+\textbf{Esempio}
+\begin{equation*}
+    \ket{00} \xrightarrow{H_{1}} \frac{\ket{0}+\ket{1}}{\sqrt{2}} \oplus \ket{0} = \frac{1}{\sqrt{2}}\left(\ket{00}+\ket{10}\right) \xrightarrow{C_{1}NOT_{2}} \frac{1}{\sqrt{2}}\left(\ket{00}+\ket{11}\right) = \text{Stato di Bell}
+\end{equation*}
+\customfbox{Se eseguo l'operatore \texttt{CNOT} due volte ottengo lo stato iniziale: \begin{equation*}
+    CNOT^{2} = Id
+\end{equation*}}
+\section{Sfera di Bloch}
+Come detto un generico stato quantistico a due livelli o qubit è scritto come $\ket{v}=\alpha\ket{0}+\beta\ket{1}$ con il vincolo ulteriore di normalizzazione dello stato: $\lvert \alpha \rvert^{2} + \lvert \beta \rvert^{2} = 1$. Quindi in generale possiamo scrivere $\lvert \alpha \rvert^{2}=\cos^{2}\left(\theta\right) \rightarrow \lvert \alpha \rvert=\cos\left(\frac{\theta}{2}\right)$ e $\lvert \beta \rvert^{2}=\sin^{2}\left(\theta\right) \rightarrow \lvert \beta \rvert=\sin\left(\frac{\theta}{2}\right)$
+Possiamo rappresentare gli stati dei qubit in modo geometrico. Consideriamo lo stato generico
+\begin{equation*}
+    \ket{\psi} = \cos\left(\frac{\theta}{2}\right)\ket{0}+\sin\left(\frac{\theta}{2}\right)e^{i\phi}\ket{1}
+\end{equation*}
+e il relativo stato bra
+\begin{equation*}
+    \bra{\psi} = \cos\left(\frac{\theta}{2}\right)\bra{0}+\sin\left(\frac{\theta}{2}\right)e^{-i\phi}\bra{1}    
+\end{equation*}
+Calcoliamo i valori medi degli operatori di Pauli $X,Y,Z$ con lo stato $\ket{\psi}$
+\begin{equation*}
+    \begin{split}
+        x &= \braket{\psi}[X]{\psi} = \cos \phi \sin \theta \\
+        y &= \braket{\psi}[Y]{\psi} = \sin \phi \sin \theta \\
+        z &= \braket{\psi}[Z]{\psi} = \cos \theta \text{ (oppure $-\cos \theta$)}
+    \end{split}
+\end{equation*}
+Queste non sono altro che le coordinate in uno spazio tridimensionale di un punto che si muove su una sfera. Se consideriamo il vettore che congiunge l'origine degli assi con il punto di coordinate $\{x,y,z\}$, l'angolo $\theta$ è quello formato dal vettore e dall'asse $z$ mentre l'angolo $\phi$ è quello formato dal vettore sul piano $y-z$
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{Immagini/sferadibloch.png}
+\end{center}
+Concludiamo che ogni operatore unitario può essere visto come una rotazione sulla sfera di Bloch che unisce lo stato iniziale con lo stato finale.\\
+L'operatore $U$ possiamo scriverlo più generalmente come:
+\begin{equation*}
+    U = \cos\left(\frac{\alpha}{2}\right)Id - i\sin\left(\frac{\alpha}{2}\right)Y
+\end{equation*}
+\textbf{Esempio}
+\begin{equation*}
+    \begin{split}
+        \ket{\psi} &= \ket{1} \\
+        \ket{\psi_{f}} &= U\ket{\psi} \\
+        &= \cos\left(\frac{\alpha}{2}\right)Id\ket{1}-i\sin\left(\frac{\alpha}{2}\right)Y\ket{1} \\
+        &= \cos\left(\frac{\alpha}{2}\right)\ket{1}-i\sin\left(\frac{\alpha}{2}\right)i\ket{0} \\
+        &= \cos\left(\frac{\alpha}{2}\right)\ket{1}+\sin\left(\frac{\alpha}{2}\right)\ket{0} \\
+    \end{split}
+\end{equation*}
 \end{document}
