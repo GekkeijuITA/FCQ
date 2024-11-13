@@ -305,7 +305,7 @@ Analizzando l'effetto degli operatori, si nota che nella base canonica, $X$ corr
         &= -\alpha\ket{0}+\beta\ket{1}
     \end{split}
 \end{equation*}
-\subsubsection{Trasformazioni di Hadamard}
+\subsubsection{Trasformazioni di Hadarmard}
 \begin{equation*}
     \begin{split}
         H\ket{0} &= \ket{+} = \frac{(\ket{0}+\ket{1})}{\sqrt{2}} \\
@@ -380,4 +380,188 @@ L'operatore $U$ possiamo scriverlo più generalmente come:
         &= \cos\left(\frac{\alpha}{2}\right)\ket{1}+\sin\left(\frac{\alpha}{2}\right)\ket{0} \\
     \end{split}
 \end{equation*}
+\chapter{Informazione Quantistica}
+\section{Parallelismo quantistico}
+Supponiamo di partire dai due qubit inizializzati nello stato $\ket{00}\equiv\ket{0}\otimes\ket{0}$ e di applicare due porte di Hadarmard ai singoli qubit. Le due porte applicate contemporaneamente si denotano come $H\otimes H\equiv H^{\otimes 2}$ dove la notazione $\otimes$ indica che la prima porta è applicata al primo qubit e la seconda al secondo qubit
+\begin{equation*}
+    \begin{split}
+        \ket{0}\otimes\ket{0}\xrightarrow{H^{\otimes 2}} \frac{\ket{0}+\ket{1}}{\sqrt{2}}\otimes\frac{\ket{0}+\ket{1}}{\sqrt{2}} &= \frac{\ket{00}}{2}+\frac{\ket{01}}{2}+\frac{\ket{10}}{2}+\frac{\ket{11}}{2} \\
+        &= \frac{1}{2}\left(\ket{00}+\ket{01}+\ket{10}+\ket{11}\right)
+    \end{split}
+\end{equation*}
+Se applichiamo un operatore unitario $U$
+\begin{equation*}
+    \begin{split}
+        \frac{1}{2}\left(\ket{00}+\ket{01}+\ket{10}+\ket{11}\right)\xrightarrow{U}\frac{1}{2}\left(U\ket{00}+U\ket{01}+U\ket{10}+U\ket{11}\right)
+    \end{split}
+\end{equation*}
+Ovvero agirà contemporaneamente su tutti gli stati logici. Questo ragionamento si estende in maniera semplice al caso di $n$ qubit. In questo caso lo stato iniziale sarà $\ket{00\ldots 0}$ e applicheremo $n$ porte di Hadarmard $H^{\otimes n}$
+\begin{equation*}
+    \begin{split}
+        \ket{00\ldots 0} \xrightarrow{H^{\otimes n}} \frac{\ket{0}+\ket{1}}{\sqrt{2}}\otimes\dots\otimes\frac{\ket{0}+\ket{1}}{\sqrt{2}} &= \frac{1}{2^{\frac{n}{2}}}\left(\ket{00\ldots 0}+\ket{10\ldots 0}+\ldots+\ket{11\ldots 1}\right) \\
+        &= \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}
+    \end{split}
+\end{equation*}
+Dove $N=2^{n}$ e anche in questo caso, applicando successivamente un operatore unitario $U$ avremo
+\begin{equation*}
+    \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}U\ket{x}
+\end{equation*}
+Possiamo manipolare parallelamente tutte le $N$ stringhe logiche.
+\section{Teorema no-cloning}
+Supponiamo di avere un singolo qubit di informazione e che si trovi nello stato $\ket{\psi}=a\ket{0}+b\ket{1}$ (con $|a|^{2}+|b|^{2}=1$). Per copiarlo, prendiamo un secondo qubit inizializzato nello stato $\ket{0}$. Avremo $\ket{\psi0}=a\ket{00}+b\ket{10}$ e applichiamo la porta \texttt{CNOT}
+\begin{equation*}
+    \ket{\psi0}=a\ket{00}+b\ket{10}\xrightarrow{C_{1}NOT_{2}} a\ket{00}+b\ket{11}
+\end{equation*}
+Se consideriamo lo stato più generale $\ket{\psi0}=a\ket{00}+b\ket{10}$ per copiarlo dovremmo avere un operatore il cui risultato sia
+\begin{equation*}
+    \ket{\psi\psi} = a^{2}\ket{00}+ab\ket{01}+ab\ket{10}+b^{2}\ket{11}
+\end{equation*}
+\customfbox{Se lo stato da copiare è sconosciuto, non è possibile copiarlo.}
+L'operazione di copiatura sarà descritta da un'evoluzione unitaria $U_{COPY}$ tale che
+\begin{equation*}
+    \ket{\psi s}\xrightarrow{U_{COPY}}\ket{\psi s}=\ket{\psi\psi}
+\end{equation*}
+Supponiamo di voler copiare anche uno stato $\ket{\varphi}$ 
+\begin{equation*}
+    \ket{\varphi s}\xrightarrow{U_{COPY}}\ket{\varphi s}=\ket{\varphi\varphi}
+\end{equation*}
+Se prendendo il prodotto scalare degli stati finali abbiamo
+\begin{equation*}
+    \braket{\varphi s}[U^{\dagger}_{COPY}U_{COPY}]{\psi s} = \braket{\varphi s}{\psi s} = \braket{\varphi}{\psi}\braket{s}{s} = \braket{\varphi}{\psi}
+\end{equation*}
+\textbf{Esempio}\\
+$s = 0$
+\begin{equation*}
+    \begin{split}
+      \bra{\varphi}\bra{0}U^{\dagger}_{COPY}\left(U_{COPY}\ket{\psi}\ket{0}\right) &= \bra{\varphi}\bra{0}I\ket{\psi}\ket{0} \\
+      &= \left(\bra{\varphi}\bra{0}\right)\left(\ket{\psi}\ket{0}\right) \\
+      &= \braket{\varphi}{\psi}\braket{0}{0} \\
+      &= \braket{\varphi}{\psi}
+    \end{split}
+\end{equation*}
+Dalle equazioni di sopra, questo deve essere uguale a $\braket{\psi\psi}{\varphi\varphi} = \braket{\varphi}{\psi}\braket{\varphi}{\psi}$
+\begin{equation*}
+    \braket{\varphi}{\psi} = \left(\braket{\varphi}{\psi}\right)^{2}
+\end{equation*}
+Quindi può esistere un operatore unitario di copia $U_{COPY}$ solo se gli stati $\ket{psi}$ e $\ket{\varphi}$ sono ortogonali ($\braket{\varphi}{\psi} = 0$) oppure identici ($\braket{\varphi}{\psi} = 1$).\\
+Concludiamo che se gli stati da copiare sono noti e ortogonali è possibile costruire un operatore unitario $U_{COPY}$ che li copi. In genere, però non è possibile copiare stati quantistici qualsiasi; ovvero non esiste nessun operatore $U_{COPY}$ capace di copiare tutti gli stati quantistici. 
+\section{Superdense coding}
+Supponiamo che Alice voglia mandare due bit di informazione classica. Alice e Bob devono condividere uno stato entangled (di Bell)
+\begin{equation*}
+    \ket{\beta_{00}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\otimes\ket{0}_{B}+\ket{1}_{A}\otimes\ket{1}_{B}\right)
+\end{equation*}
+Dove gli stati $\ket{\ldots}_{A}$ e $\ket{\ldots}_{B}$ sono rispettivamente di Alice e Bob.
+\begin{center}
+    \begin{tabular}{| c | c | c |}
+        \hline
+        \textbf{Bit di Alice} & \textbf{Porta logica applicata} & \textbf{Stato di Bob} \\
+        \hline
+        00 & $I$ & $\frac{\left(\ket{00}_{B}+\ket{11}_{B}\right)}{\sqrt{2}} \xrightarrow{C_{1}NOT_{2}} \frac{\left(\ket{00}_{B}+\ket{10}_{B}\right)}{\sqrt{2}} \xrightarrow{H} \ket{00}_{B}$ \\
+        \hline
+        01 & $X$ & $\frac{\left(\ket{10}_{B}+\ket{01}_{B}\right)}{\sqrt{2}} \xrightarrow{C_{1}NOT_{2}} \frac{\left(\ket{11}_{B}+\ket{01}_{B}\right)}{\sqrt{2}} \xrightarrow{H} \ket{01}_{B}$ \\
+        \hline
+        10 & $Z$ & $\frac{\left(\ket{00}_{B}-\ket{11}_{B}\right)}{\sqrt{2}} \xrightarrow{C_{1}NOT_{2}} \frac{\left(\ket{00}_{B}-\ket{10}_{B}\right)}{\sqrt{2}} \xrightarrow{H} \ket{10}_{B}$ \\
+        \hline
+        11 & $iY$ & $\frac{\left(\ket{01}_{B}-\ket{10}_{B}\right)}{\sqrt{2}} \xrightarrow{C_{1}NOT_{2}} \frac{\left(\ket{01}_{B}-\ket{11}_{B}\right)}{\sqrt{2}} \xrightarrow{H} \ket{11}_{B}$ \\
+        \hline
+    \end{tabular}
+\end{center}
+\section{Teletrasporto quantistico}
+Supponiamo che Alice (A) e Bob (B) condividano uno stato entangled $\ket{\beta_{00}} = \frac{\ket{00}+\ket{11}}{\sqrt{2}}$. Questa notazione sta per la più precisa
+\begin{equation*}
+    \ket{\beta_{00}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\otimes\ket{0}_{B}+\ket{1}_{A}\otimes\ket{1}_{B}\right) = \frac{1}{\sqrt{2}}\left(\ket{00}+\ket{11}\right)
+\end{equation*}
+Supponiamo che Alice abbia aun qubit di informazione $\ket{\psi} = \alpha\ket{0}+\beta\ket{1}$ (con $\lvert \alpha \rvert^{2}+\lvert \beta \rvert^{2}=1$) che vuole mandare a Bob. Per far questo, lo accoppia allo stato entangled $\ket{\beta_{00}}$
+\begin{equation*}
+    \ket{\psi_{0}} = \ket{\psi}\ket{\beta_{00}} = \frac{1}{\sqrt{2}}\left[\alpha\ket{0}(\ket{00}+\ket{11})+\beta\ket{1}(\ket{00}+\ket{11})\right]
+\end{equation*}
+Dove si intende, ad esempio, $\ket{0}\ket{00}=\ket{0}_{A}\ket{0}_{A}\ket{0}_{B}$.\\
+Poi viene applicata una porta \texttt{CNOT} usando il primo qubit A come bit di controllo e il secondo qubit B come bit target (se vediamo i qubit come $\ket{000}$ sarebbe $C_{1}NOT_{3}$)
+\begin{equation*}
+    \ket{\psi_{0}} \xrightarrow{C_{1}NOT_{2}} \ket{\psi_{1}} = \frac{1}{\sqrt{2}}\left[\alpha\ket{0}(\ket{00}+\ket{11})+\beta\ket{1}(\ket{01}+\ket{10})\right]
+\end{equation*}
+Successivamente Alice applica una porta di Hadarmard al primo qubit
+\begin{equation*}
+    \begin{split}
+        \ket{\psi_{1}} \xrightarrow{H_{1}} \ket{\psi_{2}}& = \frac{1}{2}\left[\alpha(\ket{0}+\ket{1})(\ket{00}+\ket{11})+\beta(\ket{0}-\ket{1})(\ket{01}+\ket{10})\right] \\ &
+        = \frac{1}{2}\left[\ket{00}(\alpha\ket{0}+\beta\ket{1})+\ket{01}(\alpha\ket{1}+\beta\ket{0})+\ket{10}(\alpha\ket{0}-\beta\ket{1})+\ket{11}(\alpha\ket{1}-\beta\ket{0})\right]
+    \end{split}
+\end{equation*}
+l'ultimo passo è quindi quello di rendere tale informazione accessibile a Bob. Per fare questo, Alice misura i suoi due qubit e dato che i qubit di Alice e Bob sono entangled, la  misura di Alice induce un collasso dello stato di Bob. I possibili risultati della misura di Alice e i corrispondenti stati di Bob sono
+\begin{center}
+    \begin{tabular}{| c | c | c | c |}
+        \hline
+        \textbf{Misura} & \textbf{Stato di Bob} & \textbf{Probabilità di misurare 0} & \textbf{Probabilità di misurare 1}\\
+        \hline
+        00 & $\alpha\ket{0}+\beta\ket{1}$ & $\mathcal{P}_{00}(0) = \lvert \alpha \rvert^{2}$ & $\mathcal{P}_{00}(1) = \lvert \beta \rvert^{2}$\\
+        \hline
+        01 & $\alpha\ket{1}+\beta\ket{0}$ & $\mathcal{P}_{01}(0) = \lvert \beta \rvert^{2}$ & $\mathcal{P}_{01}(1) = \lvert \alpha \rvert^{2}$\\
+        \hline
+        10 & $\alpha\ket{0}-\beta\ket{1}$ & $\mathcal{P}_{10}(0) = \lvert \alpha \rvert^{2}$ & $\mathcal{P}_{10}(1) = \lvert \beta \rvert^{2}$\\
+        \hline
+        11 & $\alpha\ket{1}-\beta\ket{0}$ & $\mathcal{P}_{11}(0) = \lvert \beta \rvert^{2}$ & $\mathcal{P}_{11}(1) = \lvert \alpha \rvert^{2}$\\
+        \hline
+    \end{tabular}
+\end{center}
+Ognuno di queste misure capita con probabilità di $\frac{1}{4}$. Affinchè Bob possegga sempre lo stato $\ket{\psi} = \alpha\ket{0}+\beta\ket{1}$, Alice chiama attraverso un canale classico Bob e gli dice quale è stato il risultato della sua misura. A questo punto Bob applica un'operatore correttivo
+\begin{center}
+    \begin{tabular}{| c | c |}
+        \hline
+        \textbf{Misura} & \textbf{Operatore correttivo} \\
+        \hline
+        00 & $I$ \\
+        \hline
+        01 & $X$ \\
+        \hline
+        10 & $Z$ \\
+        \hline
+        11 & $Y$ \\
+        \hline
+    \end{tabular}
+\end{center}
+La probabilità totale di misurare 0 per Bob è
+\begin{equation*}
+    \begin{split}
+        \mathcal{P}_{Bob}(0) &= \frac{1}{4}\left(\mathcal{P}_{00}(0)+\mathcal{P}_{01}(0)+\mathcal{P}_{10}(0)+\mathcal{P}_{11}(0)\right) \\
+        &= \frac{1}{4}\left(\lvert \alpha \rvert^{2}+ \lvert \beta \rvert^{2} +\lvert \alpha \rvert^{2}+ \lvert \beta \rvert^{2}\right) \\
+        &= \frac{1}{4}(1+1) = \frac{1}{2}
+    \end{split}
+\end{equation*}
+Stessa cosa per $\mathcal{P}_{Bob}(1)=\frac{1}{2}$.\\
+La conclusione è che sebbene Alice abbia modificato lo stato (o gli stati) di Bob, quest'ultimo non è in grado di estrarre nessuna informazione.
+\section{Algoritmi quantistici}
+\subsection{Algoritmo di Deutch}
+Data una funzione $f$ ad un bit, l'algoritmo di Deutch permette di capire se sia costante o no; nel caso in cui $f$ non sia costante viene spesso chiamata \textbf{bilanciata}. Si consideri una funzione ad un bit $f(x):\{0,1\}\rightarrow\{0,1\}$, la funzione $f$ sarà costante se $f(0)=f(1)$ e sarà bilanciata se $f(0)\neq f(1)$.\\
+Lo stato iniziale dell'algoritmo di Deutch è costituito da due qubit: $\ket{\psi_{0}}=\ket{01}$. Ad entrambi viene applicata una porta di Hadarmard per  ottenere
+\begin{equation*}
+    \ket{\psi_{0}}\rightarrow\ket{\psi_{1}} = \frac{1}{2}\left(\ket{0}+\ket{1}\right)\left(\ket{0}-\ket{1}\right)
+\end{equation*}
+\subsubsection{L'operatore $U_{f}$}
+L'effetto di questo operatore è quello di calcolare $f(x)$, l'addizione modulo 2 di $y\oplus f(x)$ e lo possa immagazzinare nel secondo qubit ($\ket{x,y}\rightarrow\ket{x,y\oplus f(x)}$). L'addizione modulo 2 è equivalente ad una porta \texttt{XOR}.\\
+Per capire come agisce l'operatore $U_{f}$, nell'algoritmo di Deutch, lo applichiamo ad uno stato generico $\ket{x}\ket{-}$:
+\begin{equation*}
+    \begin{split}
+        \ket{x}\ket{-} = \ket{x}\frac{\ket{0}-\ket{1}}{\sqrt{2}} &\xrightarrow{U_{f}}_{x=0} \ket{0}\frac{\ket{0}-\ket{1}}{\sqrt{2}} = \frac{1}{\sqrt{2}}\left(\ket{00}-\ket{01}\right)\\
+        &\xrightarrow{U_{f}} \frac{1}{\sqrt{2}}\left(\ket{0,0\oplus f(0)}-\ket{0,1\oplus f(0)}\right) = \begin{cases}
+            \frac{1}{\sqrt{2}}\left(\ket{00}-\ket{01}\right) = \ket{0}\ket{-} & \text{se $f(0)=0$} \\
+            \frac{1}{\sqrt{2}}\left(\ket{01}-\ket{00}\right) = -\ket{0}\ket{-} & \text{se $f(0)=1$}
+        \end{cases}
+    \end{split}
+\end{equation*}
+In sostanza, l'applicazione dell'operatore $U_{f}$ lascia invariato sia il primo qubit che il secondo ma lo stato acquista una fase $(-1)^{f(x)}$ che dipende dal  valore della funzione $f$ calcolata per $x$:
+\begin{equation*}
+    \ket{x}\frac{\ket{0}-\ket{1}}{\sqrt{2}}\rightarrow(-1)^{f(x)}\ket{x}\frac{\ket{0}-\ket{1}}{\sqrt{2}}
+\end{equation*} 
+Possiamo dire che lo stato $\ket{x}\frac{\ket{0}-\ket{1}}{\sqrt{2}}$ è un autovettore dell'operatore $U_{f}$ con autovalore $(-1)^{f(x)}$.\\
+Tornando allo stato iniziale $\ket{\psi_{1}}$, applichiamo l'operatore $U_{f}$ e una porta di Hadarmard sul primo qubit per ottenere
+\begin{equation*}
+    \begin{split}
+        \ket{\psi_{2}} = U_{f}\ket{\psi_{1}} &= \frac{1}{\sqrt{2}}\left((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1}\right) \\ 
+        &\xrightarrow{H_{1}} \frac{1}{2}\left[\ket{0}\left((-1)^{f(0)}+(-1)^{f(1)}\right)+\ket{1}\left((-1)^{f(0)}-(-1)^{f(1)}\right)\right]
+    \end{split}
+\end{equation*}
+Se la funzione è costante avremo che $(-1)^{f(0)}+(-1)^{f(1)}=2$ e $(-1)^{f(0)}-(-1)^{f(1)}=0$ quindi $\ket{\psi_{2}}=\ket{0}$. Al contrario se la funzione è bilanciata avremo che $(-1)^{f(0)}+(-1)^{f(1)}=0$ e $(-1)^{f(0)}-(-1)^{f(1)}=\pm2$ quindi $\ket{\psi_{2}}=\pm\ket{1}$ e visto che il segno $\pm$ può essere visto come fase globale, possiamo dire che lo stato finale è $\ket{1}$.
+\customfbox{L'algoritmo di Deutch permette di migliorare le performance dell'algoritmo classico perchè usa il parallelismo quantistico.}
+\subsection{Algoritmo di Deutch-Josza}
+\subsection{Algoritmo di Bernstein-Vazirani}
 \end{document}
