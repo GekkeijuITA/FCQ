@@ -563,5 +563,108 @@ Tornando allo stato iniziale $\ket{\psi_{1}}$, applichiamo l'operatore $U_{f}$ e
 Se la funzione è costante avremo che $(-1)^{f(0)}+(-1)^{f(1)}=2$ e $(-1)^{f(0)}-(-1)^{f(1)}=0$ quindi $\ket{\psi_{2}}=\ket{0}$. Al contrario se la funzione è bilanciata avremo che $(-1)^{f(0)}+(-1)^{f(1)}=0$ e $(-1)^{f(0)}-(-1)^{f(1)}=\pm2$ quindi $\ket{\psi_{2}}=\pm\ket{1}$ e visto che il segno $\pm$ può essere visto come fase globale, possiamo dire che lo stato finale è $\ket{1}$.
 \customfbox{L'algoritmo di Deutch permette di migliorare le performance dell'algoritmo classico perchè usa il parallelismo quantistico.}
 \subsection{Algoritmo di Deutch-Josza}
+L'algoritmo di Deutch-Josza segue i passaggi dell'algoritmo di Deutch. Lo stato iniziale è
+\begin{equation*}
+    \ket{\psi_{0}} = \ket{0}^{\otimes n}\ket{1}
+\end{equation*}
+Vengono applicate $n+1$ porte di Hadarmard ai primi $n+1$ qubit. In questo modo otteniamo la sovrapposizione di tutte le stringhe di bit con gli interi da 0 a $N-1 = 2^{n}-1$. Lo stato diviene
+\begin{equation*}
+    \ket{\psi_{1}} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}\ket{-}
+\end{equation*} 
+A questo punto a questo stato viene applicato l'operatore $U_{f}$ (da Bob) che si comporta così $U_{f}:\ket{x,y}\rightarrow\ket{x,y\oplus f(x)}$  e quindi
+\begin{equation*}
+    \ket{\psi_{2}} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}(-1)^{f(x)}\ket{x}\ket{-}
+\end{equation*}
+Successivamente Alice applica $n$ porte di Hadarmard ai primi $n$ qubit. Per capire come queste agiscono, è utile considerare il singolo qubit $\ket{k}$ con $k=\{0,1\}$. Conosciamo il risultato dal calcolo diretto ma è utile scriverlo in maniera compatta come
+\begin{equation*}
+    H\ket{k} = \frac{1}{\sqrt{2}}\sum_{z=0}^{1}(-1)^{kz}\ket{z}
+\end{equation*}
+Estendendo questo ragionamento a tutti gli $n$ qubit, otteniamo
+\begin{equation*}
+    H^{\otimes n}\ket{x_{1},x_{2},\ldots,x_{n}} = \sum_{x_{1},x_{2},\ldots,x_{n}}^{1}\frac{(-1)^{x_{1}z_{1}+x_{2}z_{2}+\ldots+x_{n}z_{n}}}{\sqrt{N}}\ket{z_{1},z_{2},\ldots,z_{n}}
+\end{equation*}
+Che può essere riscritta in maniera compatta come:
+\begin{equation*}
+    H^{\otimes n}\ket{x} = \sum_{z=0}^{N-1}\frac{(-1)^{x\cdot z}}{\sqrt{N}}\ket{z}
+\end{equation*}
+Ora riscriviamo lo stato $\ket{\psi}$
+\begin{equation*}
+    \ket{\psi_{2}} = \sum_{x=0}^{N-1}\sum_{z=0}^{N-1} \frac{(-1)^{x\cdot z + f(x)}}{N}\ket{z}\ket{-}
+\end{equation*}
+Se $z=0$ sappiamo che $x\cdot z = 0$ e se $f$ costante ($f(x)\rightarrow \bar{f}$ ) per tutti i valori di $x$ allora il termine $(-1)^{f(x)}$ non dipende più da $x$
+\begin{equation*}
+    \sum_{x=0}^{N-1} \frac{(-1)^{\bar{f}}}{N} = (-1)^{\bar{f}}\sum_{x=0}^{N-1} \frac{1}{N} = (-1)^{\bar{f}}
+\end{equation*}
+Quindi se la funzione è costante
+\begin{equation*}
+    \ket{\psi_{2}} = \ket{0}\ket{-}
+\end{equation*}
+e una misura dei primi $n$ qubit restituirà sempre 0.\\
+Se la funzione è bilanciata non possiamo portare fuori il fattore $(-1)^{f(x)}$ però sappiamo che per $\frac{N}{2}$ stringhe varrà $+1$ ($f(x)=0$) e per le altre $\frac{N}{2}$ varrà $-1$ ($f(x)=1$). Quindi il coefficiente dello stato $\ket{0}$ sarà
+\begin{equation*}
+    \sum_{x=0}^{N-1} \frac{(-1)^{f(x)}}{N} = \left(\sum_{f(x)=0}\frac{1}{N}\right)-\left(\sum_{f(x)=1}\frac{1}{N}\right) = \frac{1}{N}\left(\frac{N}{2}-\frac{N}{2}\right) = 0
+\end{equation*}
 \subsection{Algoritmo di Bernstein-Vazirani}
+Supponiamo di avere uno spazio logico a $n$ bit e di avere una funzione che per ogni input $x$ calcola $f_{a}(x)=x\cdot a = x_{1}a_{1}+x_{2}a_{2}+\ldots+x_{n}a_{n}$ dove la stringa a $n$ bit $a$ è ignota. L'obiettivo è quello di determinare la stringa $a$.\\
+L'azione dell'oracolo non sarà quello di aggiungere una fase $(-1)^{f(x)}$ ma una fase $(-1)^{x\cdot a}$ ($f_{a}(x)=x\cdot a$).
+\begin{equation*}
+    \begin{split}
+        \ket{\psi_{2}} &= \sum_{x=0}^{N-1}\sum_{z=0}^{N-1} \frac{(-1)^{x\cdot z+x\cdot a}}{N}\ket{z}\ket{-} \\
+        &= \sum_{x=0}^{N-1}\sum_{z=0}^{N-1} \frac{(-1)^{(z\oplus a)\cdot x}}{N}\ket{z}\ket{-} \\
+        &= \sum_{z=0}^{N-1}\left(\sum_{x=0}^{N-1} \frac{(-1)^{(z\oplus a)\cdot x}}{N}\right)\ket{z}\ket{-} \\
+        &= \sum_{z=0}^{N-1}X_{z}\ket{z}\ket{-}
+    \end{split}
+\end{equation*}
+Se $z=a$ vuol dire che le due stringhe hanno tutti gli $n$ bit uguali ($z_{i}=a_{i}$). Per l'$i$-esimo bit dovremmo alcolare $z_{i}\text{\texttt{ XOR }}a_{i}$.\\
+Il passo successivo è calcolare $(z+a)\cdot x$ che darà 0 visto che per i singoli bit avremo $(z_{i}+a_{i})\cdot x_{i}=0$ di conseguenza abbiamo che 
+\begin{equation*}
+    X_{z=a}=\sum_{x=0}^{N-1} \frac{1}{N} = 1
+\end{equation*}
+e quindi tutti gli altri coefficienti devono essere annullati $X_{z\neq a}=0$
+\subsection{Algoritmo di Simon}
+\customfbox{
+    \begin{equation*}
+        f: \{0,1\}^{n} \rightarrow \{0,1\}^{n}
+    \end{equation*}
+}
+La funzione $f$ ha la caratteristica che per ogni $x$ esiste un solo $y$ tale che $f(x)=f(y)$. Tale $y$ non è casuale ma sappiamo che è calcolato secondo la regola $y=x\oplus a$ dove $a$ è una stringa di $n$ bit. L'obiettivo è quello di determinare la stringa $a$, ovvero, la periodicità della funzione $f$.\\
+L'unica possibilità che abbiamo è di dare all'oracolo una serie di stringhe fino a che non troviamo una coppia $x$ e $y$ tale che $f(x)=f(y)$. Una volta trovate tali stringhe, il periodo può essere calcolato come $a=x\oplus y$.\\
+In media sono necessari $2^{\frac{n}{2}}$ tentativi e chiamate dell'oracolo. Supponiamo come nell'algoritmo di Deutch-Josza di partire da $n$ bit logici più $n$ qubit addizionali $\ket{\psi_{0}}=\ket{0}^{\otimes n}\ket{0}^{\otimes n}$ e di applicare $N$ porte di Hadarmard ai primi $n$ qubit:
+\begin{equation*}
+    \ket{\psi_{1}} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}\ket{0}^{\otimes n}
+\end{equation*}
+Dato che $\ket{0\oplus f(x)} = \ket{f(x)}$
+\begin{equation*}
+    \ket{\psi_{1}} \xrightarrow{O} \ket{\psi_{2}} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1} \ket{x}\ket{f(x)}
+\end{equation*}
+Dato che per ogni $x$ esiste un $x\oplus a$ tale che $f(x)=f(x\oplus a)$, possiamo scrivere
+\begin{equation*}
+    \ket{\psi_{2}} = \frac{1}{\sqrt{\frac{N}{2}}} \sum_{x=0}^{N-1}\frac{\ket{x}+\ket{x\oplus a}}{\sqrt{2}}\ket{f(x)}
+\end{equation*}
+$f(x)$ collassa a $f(x_{0})$ con probabilità $\frac{1}{2^{n-1}}=\frac{2}{N}$ e il valore di questa stringa non è importante quindi possiamo scrivere lo stato come
+\begin{equation*}
+    \ket{\psi_{3}}=\frac{\ket{x_{0}}+\ket{x_{0}\oplus a_{0}}}{\sqrt{2}}
+\end{equation*}
+Applichiamo $n$ porte di Hadarmard
+\begin{equation*}
+    \begin{split}
+        \frac{\ket{x_{0}}+\ket{x_{0}\oplus a}}{\sqrt{2}} &\xrightarrow{H^{\otimes n}} \frac{1}{\sqrt{2}}\left(\frac{1}{\sqrt{N}}\sum_{z=0}^{N-1}(-1)^{x_{0}\cdot z}\ket{z} + \frac{1}{\sqrt{N}}\sum_{z=0}^{N-1}(-1)^{(x_{0}\oplus a)\cdot z}\ket{z}\right)\\
+        &= \frac{1}{\sqrt{2}}\left(\frac{1}{\sqrt{N}}\sum_{z=0}^{N-1}(-1)^{x_{0}\cdot z}\ket{z} + \frac{1}{\sqrt{N}}\sum_{z=0}^{N-1}(-1)^{x_{0}\cdot z + a\cdot z}\ket{z}\right) \\
+        &= \frac{1}{\sqrt{2N}}\left(\sum_{z=0}^{N-1}(-1)^{x_{0}\cdot z}\left(1+(-1)^{a\cdot z}\right)\ket{z}\right)
+    \end{split}
+\end{equation*}
+Il prodotto interno bit-per-bit $a\cdot z = \{0,1\}$ per le stringhe $z$ per cui $a\cdot z=1$, il coefficiente dello stato $\ket{z}$ è 0. Al contrario se $a\cdot z=0$ il coefficiente è 1. La possiamo riscrivere come:
+\begin{equation*}
+    \ket{\psi_{4}} = \frac{1}{\sqrt{2N}} \sum_{a\cdot z=0} (-1)^{x_{0}\cdot z}\left[1+(-1)^{a\cdot z}\right]\ket{z}
+\end{equation*}
+Dobbiamo iterare la procedura per ottenere diversi valori $z_{2},z_{3},\ldots,z_{n}$ tali che $a\cdot z_{i}=0$ per $i=1,\ldots,n$. Con questi $z_{i}$ possiamo risolvere il sistema di equazioni
+\begin{equation*}
+    \begin{cases}
+        a\cdot z_{1} = 0 \\
+        a\cdot z_{2} = 0 \\
+        \vdots \\
+        a\cdot z_{n} = 0
+    \end{cases}
+\end{equation*}
+Se le equazioni sono linearmente indipendenti esiste una sola stringa $a$ che le soddisfa tutte e può essere facilmente determinata.
 \end{document}
