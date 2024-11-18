@@ -667,4 +667,237 @@ Dobbiamo iterare la procedura per ottenere diversi valori $z_{2},z_{3},\ldots,z_
     \end{cases}
 \end{equation*}
 Se le equazioni sono linearmente indipendenti esiste una sola stringa $a$ che le soddisfa tutte e può essere facilmente determinata.
+\chapter{Crittografia quantistica}
+La crittografia quantistica segue uno schema a chiave privata e, in  particolare, si focalizza sullo scambio delle chiavi private (si parla infatti di Quantum Key Distribution o QKD).
+\section{Protocollo BB84}
+Il protocollo BB84 è un protocollo sicuro per la distribuzione di chiavi crittografiiche. Un eventuale hacker (Eve) non può copiare un generico qubit contenente l'informazione a causa del teorema no-cloning e non può misurare un qubit senza pertubarlo a causa del collasso della funzione d'onda.\\
+Per il protocollo  BB84 possiamo identificare due basi indicate con $B_{1}$ e $B_{2}$:
+\begin{itemize}
+    \item $B_{1}:\{\ket{0},\ket{1}\}$
+    \item $B_{2}: \{\ket{+},\ket{-}\}$
+\end{itemize}
+\subsection{Implementazione}
+\begin{enumerate}
+    \item La prima sequenza $n$ rappresenta una stringa logica associata al messaggio mentre la seconda rappresenta la base in cui codificare il messaggio. 
+    \begin{center}
+        \begin{tabular}{c c c c c c}
+            \textbf{Logica} & 0 & 1 & 1 & 0 & 1  \\
+            \textbf{Basi} & 0 & 0 & 1 & 0 & 0  \\
+            \textbf{Messaggio} & $\ket{0}$ & $\ket{1}$ & $\ket{-}$ & $\ket{0}$ & $\ket{1}$  \\
+        \end{tabular}
+    \end{center}
+    \item L'output è certo dato che le stringhe delle basi di Alice e Bob coincidono.
+    \item Alice e Bob pubblicano apertamente le stringhe delle basi e poi guardano quali sono i bit con le basi in comune e creano la chiave a partire da quei bit.
+    \begin{center}
+        \textbf{Alice}
+        \begin{tabular}{c c c c c}
+            0 & 1 & 1 & 0 & 1  \\
+            0 & 0 & 1 & 0 & 0  \\
+            $\ket{0}$ & $\ket{1}$ & $\ket{-}$ & $\ket{0}$ & $\ket{1}$  \\
+        \end{tabular}\\
+        \vspace{0.5em}
+        \textbf{Bob}
+        \begin{tabular}{c c c c c}
+            1 & 0 & 1 & 1 & 0  \\
+            0 & 0 & 1 & 0 & 0  \\
+            $\ket{1}$ & $\ket{0}$ & $\ket{-}$ & $\ket{1}$ & $\ket{0}$  \\
+        \end{tabular}
+    \end{center}
+\end{enumerate}
+\textbf{Intervento di Eve}\\
+Visto che Eve non può copiare i qubit per il teorema no-cloning, l'unica cosa che può  fare è inserirsi nella comunicazione fra Alice e  Bob e sostituirsi a Bob nella misura per poi mandare a Bob dei qubit.
+\section{Protocollo B92}
+Invece di scegliere due basi, Alice ne sceglie solo una $B=\{\ket{0},\ket{+}\}$. Gli stati della base $B$ sono non-ortogonali dato che $\braket{0}{+}=\frac{1}{\sqrt{2}}$.
+\begin{enumerate}
+    \item Come nel BB84, Alice estrae una sola stringa di $n$ numeri random. Se Alice ha estratto 0 costruirà il qubit $\ket{0}$; se ha estratto 1 costruirà il qubit $\ket{+}$. In seguito, li invia a Bob tramite un canale quantistico.
+    \item Ricevuti i qubit Bob estrae una stringa di $n$ numeri random e fa una misura. La misura viene fatta nella base $B_{1}=\{\ket{0},\ket{1}\}$ se ha estratto 0 e nella base $B_{2}=\{\ket{+},\ket{-}\}$ se ha estratto 1. \begin{enumerate}
+        \item Se Bob sceglie la base $B_{1}$ (estrae 0) e misura lo stato $\ket{1}$, sa immediatamente che Alice ha mandato il qubit $\ket{+}$ e quindi ha lo stato logico 1.
+        \item Se Bob sceglie la base $B_{1}$ e misura lo stato $\ket{0}$, questo potrebbe essere associato allo stato di Alice $\ket{0}$ o $\ket{+}$. Quindi Bob non riesce a risalire al valore del qubit di Alice.
+        \item Se Bob sceglie la base $B_{2}$ e misura lo stato $\ket{-}$, sa immediatamente che Alice ha mandato il qubit $\ket{0}$ e quindi ha lo stato logico 0.
+        \item Se Bob sceglie la base $B_{2}$ e misura lo stato $\ket{+}$, questo potrebbe essere associato allo stato di Alice $\ket{0}$ o $\ket{+}$. Quindi Bob non riesce a risalire al valore del qubit di Alice.
+    \end{enumerate}
+    \item Bob pubblica la posizione dei bit per i quali non è certo del valore del bit di Alice. Questi bit vengono scartati e i rimanenti bit costituiranno la chiave segreta dato che il loro valore non è stato pubblicato.
+    \item Per capire se Eve ha intercettato i qubit, Alice e Bob pubblicano metà dei bit che sanno essere perfettamente correlati. Se c'è un disaccordo, sanno che Eve ha intercettato la comunicazione e ignorano la stringa scambiata.
+\end{enumerate}
+\section{Protocollo EPR con stati entangled}
+Supponiamo che Alice  e Bob condividano $n$ qubit entangled come
+\begin{equation*}
+    \ket{\phi^{+}} = \frac{\ket{00}+\ket{11}}{\sqrt{2}}
+\end{equation*}
+Alice genera un bit random classico $b$ e, a seconda del suo valore, misura il suo qubit nella base $B_{1}$ o nella base $B_{2}$ (le stesse usata per il protocollo BB84). Supponiamo che il valore di questa misura sia $a$. Allo stesso modo, Bob genera un bit random classico $b'$.\\
+Supponiamo che il bit random di Alice sia $b=0$ e che Alice misuri nella base $B_{1}$. Se misura 0 (il 50\% delle volte), il sistema collasserà nello stato $\ket{00}$. Se Bob estrae il numero $b'=0$ e misura nella base $B_{1}$, il suo risultato sarà 0 il 100\% delle volte. Allo stesso modo se Alice misura 1 il sistema  collassa nello stato $\ket{11}$ e se $b'=0$, Bob misurerà sempre 1. Ne consegue che $b=b'=0$ i qubit di Alice e Bob sono perfettamente correlati.\\
+Supponiamo ora che Alice estragga il numero $b=1$ e decida di misurare nella base $B_{2}$. Abbiamo che lo stato entangled può essere scritto come
+\begin{equation*}
+    \begin{split}
+        \ket{\phi^{+}} &= \frac{1}{\sqrt{2}}\left(\frac{\ket{+}+\ket{-}}{\sqrt{2}}\otimes\ket{0}+\frac{\ket{+}-\ket{-}}{\sqrt{2}}\otimes\ket{1}\right) \\
+        &= \frac{1}{\sqrt{2}}\left(\ket{+}\otimes\frac{\ket{0}+\ket{1}}{\sqrt{2}}+\ket{-}\otimes\frac{\ket{0}-\ket{1}}{\sqrt{2}}\right) \\
+        &= \frac{\ket{++}+\ket{--}}{\sqrt{2}}   
+    \end{split}
+\end{equation*}
+Seguendo il ragionamento precedente è chiaro che se Bob estrae $b'=1$, le misure di Alice e Bob sono perfettamente correlate. Ovvero, se il qubit di Alice collassa in $\ket{\pm}$ anche quello di Bob si trovera nello stato $\ket{\pm}$.\\
+Supponiamo che Alice abbia $b=0$ e $b'=1$ e che la misura di Alice faccia collassare i qubit nello stato $\ket{00}$
+\begin{equation*}
+    \ket{00}=\ket{0}\otimes\frac{\ket{+}+\ket{-}}{\sqrt{2}}
+\end{equation*}
+E' chiaro che una misura di Bob nella base $B_{2}$ darà metà delle volte lo stato $\ket{+}$ e il risultato $a'=0$ e la rimanente metà lo stato $\ket{-}$ e il risultato $a'=1$.
+\section{Quantum Money}
+Lo scopo è quello di sfruttare la meccanica quantistica per costruire una moneta che non possa essere contraffatta.\\
+La moneta quantistica è costituita da $n$ qubit $M_{n}$ a cui associa un numero intero di serie $0\leq m_{n} \leq 2^{n}-1$. Come nel BB84 la prima stringa rappresenta l'informazione logica mentre la seconda è la stringa delle basi quantistiche $B_{m}$: si usa la base $B_{1}$ quando nella seconda stringa compare  lo stato 0 e la base $B_{2}$ quando compare lo stato 1. Viene invece conservato il numero di serie $m_{n}$ associato alla stringa delle basi $B_{m}$ e alla stringa della moneta $M_{n}$.\\
+\textbf{Esempio:}
+\begin{center}
+    \begin{tabular}{c c c c}
+        0 & 1 & 0 & 1 \\
+        0 & 0 & 1 & 1 \\
+        $\ket{0}$ & $\ket{1}$ & $\ket{+}$ & $\ket{-}$ \\
+    \end{tabular}
+\end{center}
+\textbf{La terza riga è la nostra moneta quantistica}.\\
+Per certificare l'autenticità della moneta, Alice invia la moneta alla banca che l'ha emessa. La banca controlla il numero di serie $m_{n}$, risale alla stringa delle basi quantistiche $B_{m}$ e, usando quest'ultima, fa una misura nelle corrispondenti basi. Se la moneta è quella corretta, tutte le misure saranno deterministiche e la banca riotterà la stringa $M_{n}$.\\
+\textit{Pensandola come tabella:}
+\begin{center}
+    \begin{tabular}{| c | c | c |}
+        \hline
+        \textbf{id} & \textbf{stringa logica} & \textbf{stringa basi} \\
+        \hline
+        $m_{n}$ & ****** & ****** \\
+        \hline
+    \end{tabular}
+\end{center}
+Dove l'id è pubblico mentre le stringhe sono private e solo la banca può vederle.
+\chapter{Algoritmi quantistici}
+\section{Algoritmo di Grover per la ricerca in database}
+\subsection{Oracolo o Black box}
+Supponiamo di avere un database di $N=2^{n}$ elementi con $n$ bit. Gli interi associati saranno nell'intervallo compreso fra 0 e $N-1$.\\
+Tutta l'informazione sul problema che vogliamo risolvere è codificata in una funzione $f$ che ha come input un intero $x$ (o una stringa di $n$ bit) e come output un singolo bit. In altre parole, $f:\{0,1\}^{\otimes n}\rightarrow\{0,1\}$. Per definizione, $f(x)=1$ se $x$ è soluzione del nostro problema e $f(x)=0$ altrimenti.\\
+Supponiamo che ci sia dato un numero intero $m$ e che ci sia detto che è il prodotto di due numeri primi $p$ e $q$: $m=p\cdot q$. Dobbiamo trovare quali sono $p$ e $q$. In questo caso la funzione $f$ implementata dall'oracolo non fa  altro che prendere un intero $x$ come input, dividere $m$ per $x$ e controllare se la divisione è esatta. Quindi l'oracolo non conosce la soluzione ma è in grado di verificare velocemente se un numero è soluzione o no del problema.\\
+Allo stato generico $\ket{x}$ associamo un qubit aggiuntivo detto spesso qubit oracolo o \textbf{ancilla} $\ket{q}$, sarà quindi $\ket{x}\ket{q}$
+\begin{equation*}
+    \ket{x}\ket{q} \xrightarrow{O} \ket{x}\ket{q\oplus f(x)}
+\end{equation*}
+Se $q=0$ e se $x$ è soluzione, $f(x)=1$ e $\ket{0\oplus 1} = \ket{1}$. Al contrario se $x$ non è soluzione, $f(x)=0$ e $\ket{0\oplus 0} = \ket{0}$.
+\begin{equation*}
+    \ket{x}\ket{0}\xrightarrow{O}\begin{cases}
+        \ket{x}\ket{1} & \text{se $x$ è soluzione} \\
+        \ket{x}\ket{0} & \text{se $x$ non è soluzione}
+    \end{cases}
+\end{equation*} 
+Se $q=1$ e se $x$ è soluzione, $f(x)=1$ e $\ket{1\oplus 1} = \ket{0}$. Al contrario se $x$ non è soluzione, $f(x)=0$ e $\ket{1\oplus 0} = \ket{1}$.
+\begin{equation*}
+    \ket{x}\ket{0}\xrightarrow{O}\begin{cases}
+        \ket{x}\ket{0} & \text{se $x$ è soluzione} \\
+        \ket{x}\ket{1} & \text{se $x$ non è soluzione}
+    \end{cases}
+\end{equation*} 
+Questa osservazione ci permette di studiare in altri casi dove il qubit ancilla nello stato $\ket{q}=\ket{-}$. Lo stato totale si può scrivere come
+\begin{equation*}
+    \ket{x}\otimes\ket{-} = \frac{1}{\sqrt{2}}\left(\ket{x}\otimes\ket{0}-\ket{x}\otimes\ket{1}\right) \xrightarrow{O}\begin{cases}
+        \frac{1}{\sqrt{2}}\left(\ket{x}\otimes\ket{1}-\ket{x}\otimes\ket{0}\right) & \text{se $x$ è soluzione} \\
+        \frac{1}{\sqrt{2}}\left(\ket{x}\otimes\ket{0}-\ket{x}\otimes\ket{1}\right) & \text{se $x$ non è soluzione} \\
+    \end{cases}
+\end{equation*}
+I due stati ottenuti differiscono solo per un segno meno che possiamo fattorizzare come una fase
+\begin{equation*}
+    \ket{x}\otimes\ket{-}\xrightarrow{O}(-1)^{f(x)}\ket{x}\otimes\ket{-}
+\end{equation*}
+Se usando $q=0$, lo stato $\ket{x}\ket{q}$ viene modificato, usando $\ket{q}=\ket{-}$ acquista solo una fase $(-1)^{f(x)}$ mentre la struttura non viene cambiata. In quest'ultimo caso possiamo addirittura dimenticarci del qubit ancilla (visto che non viene modificato ed è uguale per tutti gli stati $\ket{x}$) e scrivere l'effetto solo sui qubit logici:
+\begin{equation*}
+    \ket{x}\xrightarrow{O}(-1)^{f(x)}\ket{x}
+\end{equation*}
+\subsection{Algoritmo di Grover}
+L'algoritmo di Grover inizia con la costruzione dello stato quantistico sovrapposizione di tutti i possibili stati logici, può essere costruito partendo dallo stato di soli zeri $\ket{00\ldots  0}$ con l'applicazione di $n$ porte di Hadarmard:
+\begin{equation*}
+    \ket{\psi} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}
+\end{equation*}
+\subsubsection{Implementazione dell'operatore di Grover $G$}
+\begin{enumerate}
+    \item Applicare allo stato l'oracolo che cambia la fase allo stato soluzione: \begin{equation*}
+        \ket{x}\xrightarrow{O}(-1)^{f(x)}\ket{x}
+    \end{equation*}
+    \item Applicare $n$ porte di Hadarmard
+    \item Applicare un cambio di fase a tutti gli stati tranne allo stato $\ket{00\ldots 0}$: \begin{equation*}
+        \ket{x}\xrightarrow{O}(-1)^{\delta_{x_{0}}}\ket{x}
+    \end{equation*} dove $\delta_{x_{0}}$ è il delta di Kronecker ovvero $\ket{0}\rightarrow\ket{0}$ e per $x\neq 0$, $\ket{x}\rightarrow -\ket{x}$
+    \item Applicare $n$ porte di Hadarmard
+\end{enumerate}
+L'algoritmo per la ricerca in un database si riduce alla sua applicazione per un numero $\sqrt{N}=2^{\frac{n}{2}}$ (tldr: applica $G$ per $\sqrt{N}$ volte).
+\subsection{Stati "soluzione" e "non-soluzione"}
+Lo spazio logico può essere diviso in due sottospazi. Quello generato da $\ket{x}$ con $x$ soluzione del nostro problema ($S$) e quelli che non sono soluzione del nostro problema ($\bar{S}$). Supponiamo che ci siano $M$ stati soluzione e, di conseguenza, $N-M$ non-soluzione
+\begin{equation*}
+    \begin{split}
+        \ket{\alpha} &= \frac{1}{\sqrt{N-M}}\sum_{x\in\bar{S}}^{\ket{x}} \\
+        \ket{\beta} &= \frac{1}{\sqrt{M}}\sum_{x\in S}^{\ket{x}}
+    \end{split}
+\end{equation*}
+Con questa notazione lo stato iniziale $\ket{\psi}$ si scrive come
+\begin{equation*}
+    \begin{split}
+        \ket{\psi} &= \frac{1}{\sqrt{N}}\left(\sum_{x\in S}\ket{x}+\sum_{x\in\bar{S}}\ket{x}\right) \\
+        &= \frac{1}{\sqrt{N}}\left(\sqrt{M}\ket{\beta}+\sqrt{N-M}\ket{\alpha}\right) \\
+        &= \sqrt{\frac{N-M}{N}}\ket{\alpha}+\sqrt{\frac{M}{N}}\ket{\beta}
+    \end{split}
+\end{equation*}
+\subsection{Operatore di Grover}
+Come detto l'oracolo cambia segno solo agli stati soluzione, quindi cambierà segno allo stato $\ket{\beta}$ lasciando $\ket{\alpha}$ invariato. Se lo facciamo agire su uno stato generico a $a\ket{\alpha}+b\ket{\beta}$ otteniamo
+\begin{equation*}
+    O\left(a\ket{\alpha}+b\ket{\beta}\right) = a\ket{\alpha}-b\ket{\beta}
+\end{equation*}
+Nella notazione braket:
+\begin{equation*}
+    O = \ket{\alpha}\bra{\alpha}-\ket{\beta}\bra{\beta}
+\end{equation*}
+E in termini di matrici:
+\begin{equation*}
+    O = \begin{bmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{bmatrix}
+\end{equation*}
+Per indicare l'operatore che cambia la fase a tutti tranne lo 0
+\begin{equation*}
+    U  = 2\ket{\bar{0}}\bra{\bar{0}}-I
+\end{equation*}
+Possiamo verificare che se $\ket{x}\neq\ket{\bar{0}}$
+\begin{equation*}
+    U\ket{x} = (2\ket{\bar{0}}\bra{\bar{0}}-I)\ket{x} = -\ket{x}
+\end{equation*}
+e che 
+\begin{equation*}
+    U\ket{\bar{0}} = (2\ket{\bar{0}}\bra{\bar{0}}-I)\ket{\bar{0}} = \ket{\bar{0}}
+\end{equation*}
+A questo punto possiamo scrivere la parte rimanente dell'operatore di Grover  come
+\begin{equation*}
+    H^{\otimes n}UH^{\otimes n} = 2\ket{\psi}\bra{\psi}-I
+\end{equation*}
+L'ultimo passaggio deriva dal fatto che $H^{\otimes n}\ket{\bar{0}}=\frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}=0\ket{\psi}$ e che $H^{\otimes n}IH^{\otimes n}=I$.\\
+Ne consegue che l'operatore di Grover può essere scritto come
+\begin{equation*}
+    G=\left(2\ket{\psi}\bra{\psi}-I\right)O
+\end{equation*}
+\subsection{Interpretazione geometrica}
+Lo stato $\ket{\psi}$ è normalizzato e può essere riscritto in termini di funzioni seno e coseno come
+\begin{equation*}
+    \begin{split}
+        \ket{\psi} &= \cos\left(\frac{\theta}{2}\right)\ket{\alpha}+\sin\left(\frac{\theta}{2}\right)\ket{\beta} \\
+        \cos\left(\frac{\theta}{2}\right) &= \sqrt{\frac{N-M}{N}} \\
+        \sin\left(\frac{\theta}{2}\right) &= \sqrt{\frac{M}{N}}
+    \end{split}
+\end{equation*}
+Abbiamo che $\braket{\psi}{\alpha}=\cos\frac{\theta}{2}$ e $\braket{\psi}{\beta}=\sin\frac{\theta}{2}$.
+\begin{equation*}
+    \begin{split}
+        (2\ket{\psi}\bra{\psi}-I)\ket{\alpha} &= 2\ket{\psi}\braket{\psi}{\alpha}-\ket{\alpha} \\
+        &= 2\cos\frac{\theta}{2}\ket{\psi}-\ket{\alpha} \\
+        &= 2\cos\frac{\theta}{2}\left(\cos\frac{\theta}{2}\ket{\alpha}+\sin\frac{\theta}{2}\ket{\beta}\right)-\ket{\alpha} \\
+        &= \cos\theta\ket{\alpha}+\sin\theta\ket{\beta}
+    \end{split}
+\end{equation*}
+In maniera del tutto analoga abbiamo
+\begin{equation*}
+    \begin{split}
+        (2\ket{\psi}\bra{\psi}-I)\ket{\beta} &= 2\ket{\psi}\braket{\psi}{\beta}-\ket{\alpha} \\
+        &= 2\cos\frac{\theta}{2}\ket{\psi}-\ket{\beta} \\
+        &= 2\cos\frac{\theta}{2}\left(\cos\frac{\theta}{2}\ket{\alpha}+\sin\frac{\theta}{2}\ket{\beta}\right)-\ket{\beta} \\
+        &= \sin\theta\ket{\alpha}-\cos\theta\ket{\beta}
+    \end{split}
+\end{equation*}
 \end{document}
