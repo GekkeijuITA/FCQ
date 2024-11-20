@@ -900,4 +900,106 @@ In maniera del tutto analoga abbiamo
         &= \sin\theta\ket{\alpha}-\cos\theta\ket{\beta}
     \end{split}
 \end{equation*}
+Questo ci permette di scrivere l'operatore $U$ in forma matriciale come
+\begin{equation*}
+    U=\begin{pmatrix}
+        \braket{\alpha}[U]{\alpha} & \braket{\alpha}[U]{\beta} \\
+        \braket{\beta}[U]{\alpha} & \braket{\beta}[U]{\beta}
+    \end{pmatrix}
+    =\begin{pmatrix}
+        \cos\theta & \sin\theta \\
+        \sin\theta & -\cos\theta
+    \end{pmatrix}
+\end{equation*}
+Ne consegue che l'operatore di Grover nello spazio $\{\ket{\alpha},\ket{\beta}\}$ e in forma matriciale si scrive come
+\begin{equation*}
+    G = UO =
+    \begin{pmatrix}
+        \cos\theta & \sin\theta \\
+        \sin\theta & -\cos\theta
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{pmatrix} =
+    \begin{pmatrix}
+        \cos\theta & -\sin\theta \\
+        \sin\theta & \cos\theta
+    \end{pmatrix}
+\end{equation*}
+Confermando l'osservazione che $G$ ruota lo stato di $\theta$.
+\subsection{Effetto dell'operatore di Grover}
+L'operatore di Grover nella rappresentazione è immediatamente associabile ad una rotazione nel piano definito dagli stati $\ket{\alpha}$ e $\ket{\beta}$.\\
+Per capire meglio questo punto, supponiamo di applicarlo allo stato $\ket{\phi}=\cos\delta\ket{\alpha}+\sin\delta\ket{\beta}$
+\begin{equation*}
+    G\ket{\phi} = \begin{pmatrix}
+        \cos\theta & -\sin\theta \\
+        \sin\theta & \cos\theta
+    \end{pmatrix}\cdot \begin{pmatrix}
+        \cos\delta \\
+        \sin\delta
+    \end{pmatrix} = \begin{pmatrix}
+        \cos(\delta+\theta) \\
+        \sin(\delta+\theta)
+    \end{pmatrix}
+\end{equation*}
+Se applichiamo $k$ volte l'operatore di Grover, genereremo nello spazio $\{\ket{\alpha}.\ket{\beta}\}$ una rotazione di un angolo $k\theta$
+\begin{equation*}
+    G^{k} = \begin{pmatrix}
+        \cos k\theta & -\sin k\theta \\
+        \sin k\theta & \cos k\theta
+    \end{pmatrix}
+\end{equation*}
+Se lo stato iniziale è $\ket{\psi}= \cos\left(\frac{\theta}{2}\right)\ket{\alpha}+\sin\left(\frac{\theta}{2}\right)\ket{\beta}$ e applichiamo $G$ per $k$ volte otteniamo
+\footnotesize
+\begin{equation*}
+    G^{k}\ket{\psi} = \begin{pmatrix}
+        \cos k\theta & -\sin k\theta \\
+        \sin k\theta & \cos k\theta
+    \end{pmatrix}\begin{pmatrix}
+        \cos\left(\frac{\theta}{2}\right) \\
+        \sin\left(\frac{\theta}{2}\right)
+    \end{pmatrix} =
+    \begin{pmatrix}
+        \cos\left(\frac{\theta}{2}+k\theta\right) \\
+        \sin\left(\frac{\theta}{2}+k\theta\right)
+    \end{pmatrix} =
+    \cos\left(\frac{\theta}{2}+k\theta\right)\ket{\alpha}+\sin\left(\frac{\theta}{2}+k\theta\right)\ket{\beta}
+\end{equation*}
+\normalsize
+\subsection{Performace dell'algoritmo di Grover}
+Per avere la certezza di misurare uno degli stati in $\ket{\beta}$ dobbiamo avere
+\begin{equation*}
+    \sin\left(\frac{\theta}{2}+k\theta\right) \approx 1
+\end{equation*}
+Che equivale a dire
+\begin{equation*}
+    \frac{\theta}{2}+k\theta \approx \frac{\pi}{2}
+\end{equation*}
+Quindi
+\begin{equation*}
+    \begin{split}
+        \frac{\theta}{2}+k\theta &\approx \frac{\pi}{2} \\
+        k\theta &\approx \frac{\pi}{2}-\frac{\theta}{2} \\
+        k\theta &\approx \frac{1}{2}(\pi-\theta) \\
+        k &\approx \frac{1}{2}\left(\frac{\pi}{\theta}-1\right)
+    \end{split}
+\end{equation*}
+Che valore assume $\theta$? Sappiamo che $\sin\frac{\theta}{2}=\sqrt{\frac{M}{N}}$ nei casi in cui ci sono poche soluzioni. Quindi $\frac{\theta}{2}$ sarà molto piccolo e per lo sviluppo della serie di Taylor avremo che:
+\begin{equation*}
+    \begin{split}
+        \sin\frac{\theta}{2}\approx\frac{\theta}{2}&=\sqrt{\frac{M}{N}}\\
+        \theta &= 2\sqrt{\frac{M}{N}}
+    \end{split}
+\end{equation*}
+Usando questa approssimazione possiamo scrivere
+\begin{equation*}
+    \begin{split}
+        k &\approx \frac{1}{2}\left(\frac{\pi}{\theta}-1\right) \\
+        k &\approx \frac{1}{2}\left(\frac{\pi}{2\sqrt{\frac{M}{N}}}-1\right) \\
+        k &\approx \frac{1}{2}\left(\frac{\pi}{2}\sqrt{\frac{N}{M}}-1\right) \\
+        k &\approx \frac{\pi}{4}\sqrt{\frac{N}{M}} \\
+    \end{split}
+\end{equation*}
+\chapter{Introduzione ai codici di correzione degli errori per computer quantistici}
 \end{document}
