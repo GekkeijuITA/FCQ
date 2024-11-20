@@ -1002,4 +1002,31 @@ Usando questa approssimazione possiamo scrivere
     \end{split}
 \end{equation*}
 \chapter{Introduzione ai codici di correzione degli errori per computer quantistici}
+\section{Correzione degli erorri nei computer classici}
+Se, ad esempio, immagazziniamo in un hardisk o mandiamo attraverso una rete una stringa di bit, è possibile che l'inevitabile rumore generi dei \textbf{bit flip} ovvero trasformi alcuni bit che inizialmente avevano valore 0 in bit con valore 1 e viceversa.\\
+Uno dei metodi più semplici e allo stesso tempo più efficaci per ovviare a questi errori è quello di  misurare tutti i bit e usare il protocollo di \textit{voto di maggioranza}: se la maggioranza dei bit ha valore 0 assumiamo che il bit logico sia 0 e correggiamao l'errore trovato; analogamente, se la maggioranza dei bit ha valore 1 assumiamo che il bit logico sia 1.
+\customfbox{
+    Ad esempio il bit logico 0 può essere codificato come 000 e il bit logico 1 può essere codificato come 111
+}
+Da questo è chiaro che il numero di bit usai deve essere dispari.
+\section{Caso quantistico: i problemi}
+\begin{itemize}
+    \item Come nel caso classico, il bit flip corrisponde alla transizione $\ket{0}\rightarrow\ket{1}$ e viceversa.
+    \item \textbf{Errori piccoli} in cui il sistema non ha una transizione completa ma transisce verso una sovrapposizione di stati; per esempio: $\ket{0}\rightarrow\gamma\ket{0}+\delta\ket{1}$
+    \item La fase relativa fra gli stati può essere modificata per effetto del rumore; per esempio, $\alpha\ket{0}+\beta\ket{1}\rightarrow\alpha\ket{0}+e^{i\phi}\beta\ket{1}$
+\end{itemize}
+\section{Codici di correzione degli errori quantistici}
+Il più semplice codice di correzione degli errori quantistici sfrutta, come l'analogo classico, il voto di maggioranza.\\
+Definiamo i qubit logici come stati composti da un numero dispari di qubit fisici:
+\begin{equation*}
+    \begin{split}
+        \ket{0_{L}} &\equiv \ket{000} \\
+        \ket{1_{L}} &\equiv \ket{111}
+    \end{split}
+\end{equation*}
+Lo stato quantistico generico sarà dunque scritto come $\alpha\ket{0_{L}}+\beta\ket{1_{L}}$ e si può ottenere a partire dallo stato a singolo qubit con delle semplici porte \texttt{CNOT}:
+\begin{equation*}
+    (\alpha\ket{0}+\beta\ket{1})\otimes\ket{0}\xrightarrow{C_{1}NOT_{2}}(\alpha\ket{00}+\beta\ket{11})\otimes\ket{0}\xrightarrow{C_{1}NOT_{3}}\alpha\ket{000}+\beta\ket{111}
+\end{equation*}
+Si noti che una misura diretta dello stato distruggerebbe la sovrapposizione e quindi parte dell'informazione. E' necessario quindi trovare degli osservabili che permettano di estrarre l'informazione desiderata senza perturbare  lo stato del sistema.
 \end{document}
