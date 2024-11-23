@@ -1028,5 +1028,74 @@ Lo stato quantistico generico sarà dunque scritto come $\alpha\ket{0_{L}}+\beta
 \begin{equation*}
     (\alpha\ket{0}+\beta\ket{1})\otimes\ket{0}\xrightarrow{C_{1}NOT_{2}}(\alpha\ket{00}+\beta\ket{11})\otimes\ket{0}\xrightarrow{C_{1}NOT_{3}}\alpha\ket{000}+\beta\ket{111}
 \end{equation*}
-Si noti che una misura diretta dello stato distruggerebbe la sovrapposizione e quindi parte dell'informazione. E' necessario quindi trovare degli osservabili che permettano di estrarre l'informazione desiderata senza perturbare  lo stato del sistema.
+Si noti che una misura diretta dello stato distruggerebbe la sovrapposizione e quindi parte dell'informazione. E' necessario quindi trovare degli osservabili che permettano di estrarre l'informazione desiderata senza perturbare  lo stato del sistema. Un operatore di questo tipo è $Z_{1}\otimes Z_{2}$; ovvero l'operatore che misura contemporaneamente il valore dell'operatore $Z$ di Pauli del primo e del secondo qubit. 
+\begin{equation*}
+    \begin{split}
+        Z_{i}\ket{0} &= -\ket{0} \\
+        Z_{i}\ket{1} &= \ket{1}
+    \end{split}
+\end{equation*}
+Quindi avremo:
+\begin{equation*}
+    \begin{split}
+        Z_{1}\otimes Z_{2}\ket{00} &= \begin{cases}
+            Z_{1}\ket{0} = -\ket{0}\\
+            Z_{2}\ket{0} = -\ket{0}
+        \end{cases} = \ket{00}, \lambda = 1 \\
+        Z_{1}\otimes Z_{2}\ket{01} &= \begin{cases}
+            Z_{1}\ket{0} = -\ket{0}\\
+            Z_{2}\ket{1} = \ket{1}
+        \end{cases} = -\ket{01}, \lambda = -1 \\
+        Z_{1}\otimes Z_{2}\ket{10} &= \begin{cases}
+            Z_{1}\ket{1} = \ket{1}\\
+            Z_{2}\ket{0} = -\ket{0}
+        \end{cases} = -\ket{10}, \lambda = -1 \\
+        Z_{1}\otimes Z_{2}\ket{11} &= \begin{cases}
+            Z_{1}\ket{1} = \ket{1}\\
+            Z_{2}\ket{1} = \ket{1}
+        \end{cases} = \ket{11}, \lambda = 1 \\
+    \end{split}
+\end{equation*}
+\subsection{Errori bit flip}
+Lo stato del sistema, se va incontro ad un bit flip per il primo qubit, sarà:
+\begin{equation*}
+    \ket{\psi} = \alpha\ket{0_{L}} + \beta\ket{1_{L}} \xrightarrow{errore} \alpha\ket{100} + \beta\ket{011} = \ket{\phi}
+\end{equation*}
+Applicando l'operatore $Z_{1}\otimes Z_{2}$ allo stato $\ket{\phi}$ abbiamo:
+\begin{equation*}
+    Z_{1}\otimes Z_{2}\left(\alpha\ket{100} + \beta\ket{011}\right) = \left(-\alpha\ket{100}-\beta\ket{011}\right) = -\ket{\phi}
+\end{equation*}
+Facendo lo stesso sullo stato senza errori $\ket{\psi}$ abbiamo:
+\begin{equation*}
+    Z_{1}\otimes Z_{2}\left(\alpha\ket{000} + \beta\ket{111}\right) = \left(\alpha\ket{000}+\beta\ket{111}\right) = \ket{\psi}
+\end{equation*}
+Concludiamo che entrambi gli stati sono autostati dell'operatore $Z_{1}\otimes Z_{2}$ ma con autovalore ($\lambda$) diverso. Quindi, una misura dell'operatore $Z_{1}\otimes Z_{2}$ non distruggerà la sovrapposizione di stati $\ket{\psi}\text{ e }\ket{\phi}$. Perà nel caso il sistema sia in  $\ket{\psi}$ oppure in $\ket{\phi}$ la misura di $Z_{1}\otimes Z_{2}$ permetterà di estrarre l'informazione desiderata. Se dalla misura otteniamo l'autovalore 1 deduciamo che non ci sono stati errori; se otteniamo $-1$ deduciamo che c'è stato un errore.\\
+Per identificare anche la posizione in cui è avvenuto l'errore è necessario misurare un altro operatore complementare come $Z_{1}\otimes Z_{3}$:
+\begin{equation*}
+    Z_{1}\otimes Z_{3}\left(\alpha\ket{100} + \beta\ket{011}\right) = \left(-\alpha\ket{100}-\beta\ket{011}\right) = -\ket{\phi}
+\end{equation*}
+Anche in questo caso otteniamo l'autovalore $-1$. Una misura combinata di $Z_{1}\otimes Z_{2}$ e $Z_{1}\otimes Z_{3}$ darà quindi una coppia di risultati:
+\begin{equation*}
+    \begin{split}
+        \{-1,-1\} \rightarrow \text{Errore in posizione 1} \\
+        \{-1,1\} \rightarrow \text{Errore in posizione 2} \\
+    \end{split}
+\end{equation*}
+Una volta identificato il qubit perturbato, potremmo intervenire applicando una porta di correzione; $X_{1}$ nel primo caso e $X_{2}$ nel secondo.
+\subsection{Errori "piccoli"}
+Un sistema quantistico può andare incontro a perturbazioni che non modificano completamente il valore del qubit ma generano sovrapposizioni indesiderate, ad esempio, $\ket{0}\rightarrow\gamma\ket{0}+\delta\ket{1}$ dove, per semplicità, consideriamo $\gamma$ e $\delta$ reali e, visto che la perturbazione è considerata piccola abbiamo che $\left|\gamma\right|\gg \left|\delta\right|$. Se il $\ket{0}$ va incontro alla trasformazione di sopra, dovremmo per forza avere che $\ket{1}\rightarrow\gamma\ket{1}-\delta\ket{0}$. Se questo tipo di errore avviene sul primo qubit si avrà una sovrapposizione di più stati:
+\begin{equation*}
+    \ket{\psi} = \alpha\ket{0_{L}}+\beta\ket{1_{L}}  \xrightarrow{errore} \alpha\gamma\ket{000}+\alpha\delta\ket{100}+\beta\gamma\ket{111}-\beta\delta\ket{011} = \ket{\phi}
+\end{equation*}
+Usando le regole di sopra abbiamo che:
+\begin{equation*}
+    Z_{1}\otimes Z_{2}\ket{\phi}=\alpha\gamma\ket{000}-\alpha\delta\ket{100}+\beta\gamma^{*}\ket{111}+\beta\delta^{*}\ket{011} \neq \ket{\phi}
+\end{equation*}
+Ne consegue che $\ket{\phi}$ non è un autostato di $Z_{1}\otimes Z_{2}$ e che quindi verrà perturbato dalla misura.
+\begin{equation*}
+    \ket{\phi} = \gamma\left(\alpha\ket{000}+\beta\ket{111}\right)+\delta\left(\beta\ket{011}-\alpha\ket{100}\right) = \gamma\ket{\psi}+\delta\ket{\phi'}
+\end{equation*}
+Dalla teoria della misura sappiamo che la misura di $Z_{1}\otimes Z_{2}$ darà 1 con probabilità $\gamma^{2}$ e il sistema collasserà sullo stato $\ket{\psi}$ oppure otterremo $-1$ con probabilità $\delta^{2}$ e il sistema collasserà sullo stato $\ket{\phi'}$.\\
+Data la condizione di errore "piccolo" $\gamma^{2}\gg \delta^{2}$, la maggior parte delle volte otterremo 1 e il sistema dopo la misura si troverà nello stato $\ket{\psi}=\alpha\ket{0_{L}}+\beta\ket{1_{L}}$. Se otteniamo $-1$ il sistema si troverà nello stato con errore $\ket{\phi'}$ segnalandoci la presenza dell'errore che può essere eliminato con l'applicazione di porte logiche correttive. E' importante evidenziare che la singola misura $Z_{1}\otimes Z_{2}$ è sufficiente per sapere che c'è stato un errore ma non per individuarne la posizione, quindi per poter applicare le porte correttive è necessario misurare anche l'osservabile $Z_{1}\otimes Z_{3}$.\\
+\customfbox{Riassumendo, le misure degli osservabili $Z_{1}\otimes Z_{2}$ e $Z_{1}\otimes Z_{3}$ permettono di controllare se e dove è avvenuto un errore e correggerlo.}
 \end{document}
