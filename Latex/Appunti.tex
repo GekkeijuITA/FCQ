@@ -1098,4 +1098,56 @@ Ne consegue che $\ket{\phi}$ non è un autostato di $Z_{1}\otimes Z_{2}$ e che q
 Dalla teoria della misura sappiamo che la misura di $Z_{1}\otimes Z_{2}$ darà 1 con probabilità $\gamma^{2}$ e il sistema collasserà sullo stato $\ket{\psi}$ oppure otterremo $-1$ con probabilità $\delta^{2}$ e il sistema collasserà sullo stato $\ket{\phi'}$.\\
 Data la condizione di errore "piccolo" $\gamma^{2}\gg \delta^{2}$, la maggior parte delle volte otterremo 1 e il sistema dopo la misura si troverà nello stato $\ket{\psi}=\alpha\ket{0_{L}}+\beta\ket{1_{L}}$. Se otteniamo $-1$ il sistema si troverà nello stato con errore $\ket{\phi'}$ segnalandoci la presenza dell'errore che può essere eliminato con l'applicazione di porte logiche correttive. E' importante evidenziare che la singola misura $Z_{1}\otimes Z_{2}$ è sufficiente per sapere che c'è stato un errore ma non per individuarne la posizione, quindi per poter applicare le porte correttive è necessario misurare anche l'osservabile $Z_{1}\otimes Z_{3}$.\\
 \customfbox{Riassumendo, le misure degli osservabili $Z_{1}\otimes Z_{2}$ e $Z_{1}\otimes Z_{3}$ permettono di controllare se e dove è avvenuto un errore e correggerlo.}
+\subsection{Errore sulla fase}
+Consideriamo gli errori in cui la fase relativa fra due stati sovrapposizione cambia di segno detto \textbf{phase flip}; questo può essere schematizzato come
+\begin{equation*}
+    \begin{split}
+        \ket{0} &\xrightarrow{\text{phase error}} \ket{0} \\
+        \ket{1} &\xrightarrow{\text{phase error}} -\ket{1}
+    \end{split}
+\end{equation*}
+Notiamo però che se invece di avere gli stati della base canonica $\{\ket{0},\ket{1}\}$ avessimo gli stati della base $\{\ket{+},\ket{-}\}$ si avrebbe
+\begin{equation*}
+    \begin{split}
+        \ket{+}=\frac{\ket{0}+\ket{1}}{\sqrt{2}} &\xrightarrow{\text{phase error}}  \frac{\ket{0}-\ket{1}}{\sqrt{2}} = \ket{-}\\
+        \ket{-}=\frac{\ket{0}-\ket{1}}{\sqrt{2}} &\xrightarrow{\text{phase error}} \frac{\ket{0}+\ket{1}}{\sqrt{2}} = \ket{+}
+    \end{split}
+\end{equation*}
+Quindi, nella base $\{\ket{+},\ket{-}\}$, il phase flip è equivalente ad un bit flip che scambia gli stati della base. Ne consegue che per identificare e correggere i phase flip è sufficiente implementare lo stesso schema dei bit flip nella base $\{\ket{+},\ket{-}\}$.\\
+Partiamo dallo stato $\ket{\phi}=\alpha\ket{000}+\beta\ket{111}$, applichiamo tre porte di Hadamard ai tre qubit:
+\begin{equation*}
+    \ket{\phi}\xrightarrow{H^{\otimes 3}}\alpha\ket{+++}+\beta\ket{---}
+\end{equation*}
+Supponiamo che il primo qubit vada incontro ad un phase flip:
+\begin{equation*}
+    \alpha\ket{+++}+\beta\ket{---}\xrightarrow{\text{phase flip}} \alpha\ket{-++}+\beta\ket{+--}
+\end{equation*}
+In questo caso, le misure di $X_{1}\otimes X_{2}$ e $X_{1}\otimes X_{3}$ daranno come risultati $\{-1,-1\}$ e permetteranno di individuare l'errore e di correggerlo applicando l'operatore $Z_{1}$.\\
+\textit{Lo schema che abbiamo usato per le operazioni con l'operatore Z di Pauli introdotte nella sezione 7.3, può essere usato anche per l'operatore X se teniamo in considerazione che $\ket{0}\equiv \ket{-}$ e $\ket{1}\equiv \ket{+}$}
+\section{Protocollo completo}
+Il protocollo completo per la correzione degli errori fu proposto da Peter Shor nel 1995. In questo protocollo i 9 qubit sono divisi in 3 blocchi e i qubit logici $\ket{0_{L}}$ e $\ket{1_{L}}$ sono definiti con
+\begin{equation*}
+    \begin{split}
+        \ket{0_{L}} &\equiv \frac{\ket{000}+\ket{111}}{\sqrt{2}} \frac{\ket{000}+\ket{111}}{\sqrt{2}}\frac{\ket{000}+\ket{111}}{\sqrt{2}} \\
+        \ket{1_{L}} &\equiv \frac{\ket{000}-\ket{111}}{\sqrt{2}} \frac{\ket{000}-\ket{111}}{\sqrt{2}}\frac{\ket{000}-\ket{111}}{\sqrt{2}}
+    \end{split}
+\end{equation*}
+E' convenitente introdurre una notazione speciale per indicare i blocchi di tre qubit:
+\begin{equation*}
+    \begin{split}
+        \ket{\bar{0}} &\equiv \frac{\ket{000}+\ket{111}}{\sqrt{2}} \\
+        \ket{\bar{1}} &\equiv \frac{\ket{000}-\ket{111}}{\sqrt{2}}
+    \end{split}
+\end{equation*}
+In questo modo, i qubit logici si possono riscrivere come
+\begin{equation*}
+    \begin{split}
+        \ket{0_{L}} &\equiv \ket{\bar{0}}\ket{\bar{0}}\ket{\bar{0}} \\
+        \ket{1_{L}} &\equiv \ket{\bar{1}}\ket{\bar{1}}\ket{\bar{1}}
+    \end{split}
+\end{equation*}
+Lo stato logico generico del qubit sarà scritto come:
+\begin{equation*}
+    \ket{\psi} = \alpha\ket{0_{L}}+\beta\ket{1_{L}} = \alpha\ket{\bar{0}}\ket{\bar{0}}\ket{\bar{0}} + \beta\ket{\bar{1}}\ket{\bar{1}}\ket{\bar{1}}
+\end{equation*}
 \end{document}
