@@ -1114,7 +1114,7 @@ Notiamo però che se invece di avere gli stati della base canonica $\{\ket{0},\k
     \end{split}
 \end{equation*}
 Quindi, nella base $\{\ket{+},\ket{-}\}$, il phase flip è equivalente ad un bit flip che scambia gli stati della base. Ne consegue che per identificare e correggere i phase flip è sufficiente implementare lo stesso schema dei bit flip nella base $\{\ket{+},\ket{-}\}$.\\
-Partiamo dallo stato $\ket{\phi}=\alpha\ket{000}+\beta\ket{111}$, applichiamo tre porte di Hadamard ai tre qubit:
+Partiamo dallo stato $\ket{\phi}=\alpha\ket{000}+\beta\ket{111}$, applichiamo tre porte di Hadarmard ai tre qubit:
 \begin{equation*}
     \ket{\phi}\xrightarrow{H^{\otimes 3}}\alpha\ket{+++}+\beta\ket{---}
 \end{equation*}
@@ -1150,4 +1150,61 @@ Lo stato logico generico del qubit sarà scritto come:
 \begin{equation*}
     \ket{\psi} = \alpha\ket{0_{L}}+\beta\ket{1_{L}} = \alpha\ket{\bar{0}}\ket{\bar{0}}\ket{\bar{0}} + \beta\ket{\bar{1}}\ket{\bar{1}}\ket{\bar{1}}
 \end{equation*}
+\subsection{Bit flip}
+Supponiamo che avvenga un bit flip su primo qubit. In questo caso ci basta considerare l'effetto sul primo blocco:
+\begin{equation*}
+    \begin{split}
+        \ket{\bar{0}} &\rightarrow \frac{\ket{100}+\ket{011}}{\sqrt{2}}\\
+        \ket{\bar{1}} &\rightarrow \frac{\ket{100}-\ket{011}}{\sqrt{2}}
+    \end{split}
+\end{equation*}
+Anche in questo caso, misuriamo gli operatori $Z_{1}\otimes Z_{2}$ e $Z_{1}\otimes Z_{3}$. Si può dimostrare che gli stati $\ket{\bar{0}}\text{ e }\ket{\bar{1}}$ sono autostati di $Z_{1}\otimes Z_{2}$ entrambi con autovalore $\lambda=1$ mentre gli stati con l'errore sono autostati di $Z_{1}\otimes Z_{2}$ con  autovalore $\lambda=-1$.\\
+Quindi la misura di questi osservabili non distruggerà  lo stato $\ket{\psi}$ nè laa sovrapposizione nel blocco ma il differente valore ottenuto ($\lambda=\pm 1$) permetterà di \underline{capire se c'è stato un errore}.\\
+\textit{Se vogliamo  lavorare nel 2° blocco useremo $Z_{4},Z_{5},Z_{6}$ e così via per il 3° blocco.}
+\subsection{Phase flip}
+Per individuare e correggere l'errore sulla fase si confrontano i blocchi invece che i qubit. Un phase flip sul primo blocco genera la trasformazione:
+\begin{equation*}
+    \begin{split}
+        \ket{\bar{0}} = \frac{\ket{000}+\ket{111}}{\sqrt{2}} &\rightarrow \frac{\ket{000}-\ket{111}}{\sqrt{2}} = \ket{\bar{1}} \\
+        \ket{\bar{1}} = \frac{\ket{000}-\ket{111}}{\sqrt{2}} &\rightarrow \frac{\ket{000}+\ket{111}}{\sqrt{2}} = \ket{\bar{0}}
+    \end{split}
+\end{equation*} 
+che è equivalente al flip del blocco $\ket{\bar{0}}\leftrightarrow\ket{\bar{1}}$.\\
+L'operatore che ci interessa in questo caso è $X_{1}\otimes X_{2}\otimes X_{3}$. Ricordando che $X_{i}\ket{0}=\ket{1}$ e $X_{i}\ket{1}=\ket{0}$
+\begin{equation*}
+    \begin{split}
+        X_{1}\otimes X_{2}\otimes X_{3}\ket{\bar{0}} &= X_{1}\otimes X_{2}\otimes X_{3}\left(\frac{\ket{000}+\ket{111}}{\sqrt{2}}\right) = \frac{\ket{000}+\ket{111}}{\sqrt{2}} = \ket{\bar{0}} \\
+        X_{1}\otimes X_{2}\otimes X_{3}\ket{\bar{1}} &= X_{1}\otimes X_{2}\otimes X_{3}\left(\frac{\ket{000}-\ket{111}}{\sqrt{2}}\right) = -\frac{\ket{000}-\ket{111}}{\sqrt{2}} = -\ket{\bar{1}}
+    \end{split}
+\end{equation*}
+Quindi i blocchi $\ket{\bar{0}}$ e $\ket{\bar{1}}$ sono autostati di $X_{1}\otimes X_{2}\otimes X_{3}$ con autovalore 1 e $-1$ rispettivamente. In altri termini, se misuriamo l'operatore $X_{1}\otimes X_{2}\otimes X_{3}$, possiamo ottenere l'informazione sulla fase relativa del blocco senza tuttavia distruggere la sovrapposizione di stati.\\
+La misura dell'operatore $(X_{1}\otimes X_{2}\otimes X_{3})(X_{4}\otimes X_{5}\otimes X_{6})$ ci permette di stabilire se la fase  del primo o secondo blocco è cambiata. Esattamente come nel caso di bit flip, laa misura dell'operatore $(X_{1}\otimes X_{2}\otimes X_{3})(X_{7}\otimes X_{8}\otimes X_{9})$ ci permetterà di individuare la posizione dell'errore. Una volta individuato il blocco in cui la fase è cambiata basterà applicare un operatore $Z_{i}$ (dove, per il primo blocc, $i=\{1,2,3\}$) per correggere l'errore.
+\subsection{Errori piccoli}
+La misuraa dell'operatore $Z_{1}\otimes Z_{2}$ permette con probabilità $\left|\gamma\right|^{2}\gg\left|\delta\right|^{2}$ di correggere automaticamente l'errore avvenuto. Abbiamo pur sempre una (piccola) probabilità $\left|\delta\right|^{2}$ di far collassare il sistema nello stato $\beta\ket{011}-\alpha\ket{100}$. In questo caso, la misura di $Z_{1}\otimes Z_{2}$ e $Z_{1}\otimes Z_{3}$ permetterà di stabilire che c'è stato un bit flip nel primo qubit e di correggerlo applicando un operatore $X_{1}$ per ottenere $-(\alpha\ket{000}-\beta\ket{111})$. Sebbene gli stati logici siano adessso corretti, la fase relativa è diversa dallo stato logico ideale ed è necessario un ulteriore passaggio: basterà usare il protocollo appena discusso per individuare e correggere il phase flip e riottenere lo stato logico corretto.
+\chapter{Elitzur-Vaidman Bomb Tester}
+\section{Interferometri}
+\begin{center}
+    \includegraphics[width=.7\textwidth]{Immagini/interferometri.png}
+\end{center}
+Uno \textbf{beam splitter} è un dispositivo sulla quale un fotone avrà il 50\% di possibilità di passare in un ramo e il 50\% di passare nell'altro. Il fotone verrà poi riflesso dagli specchi e "ricombinato" dal secondo beam splitter.\\
+Possiamo rappresentare i fotoni che vanno in orizzontale come $\ket{0}$ e quelli che vanno in verticale come $\ket{1}$, gli specchi come operatori $X$ e i beam splitter come porte di Hadarmard. Con queste notazioni abbiamo che la dinamica dell'interferometro in figura (a) è
+\begin{equation*}
+    \ket{0}\xrightarrow{H} \frac{1}{\sqrt{2}}\left(\ket{0}+\ket{1}\right)\xrightarrow{X} \frac{1}{\sqrt{2}}\left(\ket{0}+\ket{1}\right)\xrightarrow{H} \ket{0}
+\end{equation*}
+Adesso supponiamo che un oggetto assorbente venga posto nel ramo verticale come mostrato in figura (b). I fotoni che andranno nel ramo verticale saranno assorbiti e non arriveranno al secondo beam splitter, quindi al secondo beam splitter arriverà il 50\% dei fotoni che a sua volta dividerà. In altre parole: se un fotone (passano nel ramo inferiore) viene successivamente misurato dal detector 2, siamo sicuri che ci sia un oggetto assorbente senza che il fotone abbia interagito con esso.\\
+Possiamo vedere questo fenomeno a livello più preciso introducento un terzo stato $\ket{a}$ che rappresenta il fotone assorbito.
+\begin{equation*}
+    \begin{split}
+        \ket{0}&\xrightarrow{H}\frac{1}{\sqrt{2}}\left(\ket{0}+\ket{1}\right)\\
+        &\xrightarrow{\text{assorbimento}} \frac{1}{\sqrt{2}}\left(\ket{0}+\ket{a}\right) \\
+        &\xrightarrow{X}\frac{1}{\sqrt{2}}\left(\ket{1}+\ket{a}\right) \\
+        &\xrightarrow{H}\frac{1}{2}\left(\ket{0}-\ket{1}\right) + \frac{1}{\sqrt{2}}\ket{a}
+    \end{split}
+\end{equation*}
+In questo modo possiamo dire che:
+\begin{itemize}
+    \item Probabilità 0.25 di misurare $\ket{0}$ con il detector 1
+    \item Probabilità 0.25 di misurare $\ket{1}$ con il detector 2
+    \item Probabilità 0.5 di non misurare niente con i detector 
+\end{itemize}
 \end{document}
