@@ -1207,4 +1207,41 @@ In questo modo possiamo dire che:
     \item Probabilità 0.25 di misurare $\ket{1}$ con il detector 2
     \item Probabilità 0.5 di non misurare niente con i detector 
 \end{itemize}
+\subsection{Estensione e miglioramento}
+Supponiamo di fare due modifiche all'interferometro:
+\begin{enumerate}
+    \item La prima è nei beam splitter che possono essere costruiti in modo tale che la maggior parte dei fotoni passi nel ramo orizzontale e soli pochi nel ramo verticale. A livello formale, questo significa che non avremo più un operatore di Hadarmard associato al beam splitter ma un generico operatore di rotazione scrivibile come \begin{equation*}
+        U_{BS}(\theta) = \begin{bmatrix}
+            \cos\theta & -\sin\theta \\
+            \sin\theta & \cos\theta
+        \end{bmatrix}
+    \end{equation*} La matrice $U_{BS}(\theta)$ è una matrice di rotazione di un angolo $\theta$ nello spazio $\{\ket{0},\ket{1}\}$.
+    \item La seconda modifica da apportare all'interferometro è di non misurare i fotoni dopo un passaggio ma riprendere i fotoni e farli passare attraverso $N$ beam splitter prima di misurarli. Questo equivale ad applicare l'operatore $U_{BS}(\theta)$ e quindi indurre una rotazione di un angolo $N\theta$ \begin{equation*}
+        \begin{split}
+            \ket{0} &\xrightarrow{U_{BS}(\theta)} \cos\theta\ket{0}+\sin\theta\ket{1} \\
+            &\xrightarrow{U_{BS}(\theta)} \ldots \\
+            &\xrightarrow{U_{BS}(\theta)} \cos(N\theta)\ket{0}+\sin(N\theta)\ket{1}
+        \end{split}
+    \end{equation*}
+    A  questo punto si vede che se scegliamo $\theta = \frac{\pi}{2N}$ (quindi $\theta\ll 1$) lo stato finale sarà $\ket{1}$ e solo un detector misurerà i fotoni.
+\end{enumerate}
+Supponiamo adesso che la bomba sia attiva.
+\begin{equation*}
+    \begin{split}
+        \ket{0} \xrightarrow{U_{BS}(\theta)} \cos\theta\ket{0}+\sin\theta\ket{1} &\xrightarrow{\text{assorbimento}} \cos\theta\ket{0}+\sin\theta\ket{a} \\ 
+        &\xrightarrow{U_{BS}(\theta)} \cos\theta(\cos\theta\ket{0}+\sin\theta\ket{1})+\sin\theta\ket{a} \\
+        &\xrightarrow{\text{assorbimento}} \cos^{2}\theta\ket{0}+(\cos\theta\sin\theta+\sin\theta)\ket{a}
+    \end{split}
+\end{equation*}
+Estendendo questa osservazione al caso di $N$ applicazioni del beam splitter, otterremo lo stato
+\begin{equation*}
+    \ket{0}\xrightarrow{U_{BS}^{N}(\theta)} \cos^{N}\theta\ket{0}+(\ldots)\ket{a}
+\end{equation*}
+La probabilità di misurare $\ket{0}$ è:
+\begin{equation*}
+    P(0) = \cos^{2N}\theta = \left[\cos\left(\frac{\pi}{2N}\right)\right]^{2N} \approx \left[1-\left(\frac{\pi}{2N}\right)^{2}\right]^{2N} \approx 1-\frac{\pi^{2}}{8N} \approx 1
+\end{equation*}
+La probabilità di misurare $\ket{1}$ è $P(1)=\frac{\pi^{2}}{8N}\ll 1$.\\
+Quindi, in presenza della bomba attiva, la probabilità di misurare $\ket{0}$ si approssima a 1 se prendiamo $\theta$ sufficientemente piccolo e $N$ (il numero di beam splitter) sufficientemente grande.\\
+Riassumento: per $N$ grande, se la bomba non è attiva misureremo $\ket{1}$ (con certezza) mentre se la bomba è attiva misureremo $\ket{0}$ con una probabilità prossima a 1. Questo schema ci permette quindi di distinguere fra i due casi senza far esplodere la bomba.
 \end{document}
