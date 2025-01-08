@@ -28,9 +28,28 @@
 \ExplSyntaxOff
 
 \title{Relazione Home Assignment 8}
-\author{Daniele Scaffai, Lorenzo Livio Vaccarecci}
+\author{Daniele Scaffai (5658260), Lorenzo Vaccarecci (5462843)}
 \date{}
 
 \begin{document}
 \maketitle
+\section*{Obiettivo}
+L'obiettivo di questo Home Assignment è l'implementazione del protocollo degli errori di Shor, in particolare gli errori di tipo bit flip.
+
+\section*{Svolgimento}
+Abbiamo riprodotto, usando qiskit, il circuito che è stato fornito dal docente. Tra le due barriere viene applicata la porta di Pauli $X$ per simulare il bit flip.
+   
+\begin{center} 
+        \includegraphics[width=0.6\textwidth]{img/circuit.png} 
+\end{center}
+
+\section*{Risultati}
+E' stato aggiunto un misuratore alla fine del circuito e sono stati eseguiti 2048 simulazioni. La misura attesa è 0, perchè è lo stato iniziale di $\ket{\psi}$.
+\begin{center} 
+    \includegraphics[width=0.4\textwidth]{img/resultsSuccess.png}
+\end{center}
+
+\section*{Conclusioni}
+I risultati ottenuti corrispondono a quelli attesi, quindi possiamo concludere che l'implementazione del protocollo di correzione degli errori di Shor è corretta.
+
 \end{document}
