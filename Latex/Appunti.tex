@@ -62,13 +62,13 @@ Ogni numero complesso $z\in \mathbb{C}$ può essere scritto come $z=a+ib$, con $
 \begin{equation*}
     z\cdot w = (ac-bd) + i(ad+bc)
 \end{equation*}
-Per ogni $z\in \mathbb{C}$, $z\cdot z^{*}=a^{2}+b^{2}$ è reale e non negativo dove $z^{*}$ è il \textbf{complesso coniugato} di $z$ (la parte complessa è negata). Inoltre, $\sqrt{a^{2}+b^{2}}=\lvert z\rvert$ è detto \textbf{modulo} di $z$.
+Per ogni $z\in \mathbb{C}$, $z\cdot z^{*}=a^{2}+b^{2}$ è reale e non negativo dove $z^{*}$ è il \textbf{complesso coniugato} di $z$ ($z^{*}=a-ib$). Inoltre, $\sqrt{a^{2}+b^{2}}=\lvert z\rvert$ è detto \textbf{modulo} di $z$.
 \begin{equation*}
     \lvert z\rvert^{2} = z\cdot z^{*}
 \end{equation*}
-Possiamo rappresentare un numero complesso $z=a+ib$ come una coppia (a,b) sul piano complesso. L'asse delle ascisse è utilizzato per la parte reale e l'asse delle ordinate per la parte immaginaria. Si ha $a = \lvert z \rvert \cos \theta$ e $b = \lvert z \rvert \sin \theta$ dove $\theta$ è la \textbf{fase}. Se $z=0$ allora $\theta$ non è definita. Per $\lvert z \rvert = 1, z=\cos\theta + i\sin\theta$. Più in generale possiamo scrivere $z=pe^{i\theta}$ con $p=\lvert z \rvert$ e $e^{i\theta}=\cos\theta + i\sin\theta$.
+Possiamo rappresentare un numero complesso $z=a+ib$ come una coppia (a,b) sul piano complesso. L'asse delle ascisse è utilizzato per la parte reale e l'asse delle ordinate per la parte immaginaria. Si ha $a = \lvert z \rvert \cos \theta$ e $b = \lvert z \rvert \sin \theta$ dove $\theta$ è la \textbf{fase}. Se $z=0$ allora $\theta$ non è definita. Per $\lvert z \rvert = 1, z=\cos\theta + i\sin\theta$. Più in generale possiamo scrivere $z=\rho e^{i\theta}$ con $\rho=\lvert z \rvert$ e $e^{i\theta}=\cos\theta + i\sin\theta$.
 \begin{equation*}
-    i*(-i) = -1
+    i*(-i) = 1
 \end{equation*}
 \subsection{Spazi vettoriali in 2D}
 \begin{itemize}
@@ -76,12 +76,12 @@ Possiamo rappresentare un numero complesso $z=a+ib$ come una coppia (a,b) sul pi
     \item \textbf{Verso}:  specifica in che direzione punta il vettore
 \end{itemize}
 Se abbiamo due vettori $u$ e $v$ possiamo definire la somma che sarà un vettore $w=u+v$ ottenuto mediante la \textbf{regola del parallelogramma}.\\
-Dato un numero $\alpha\in \mathbb{R}$, per ogni vettore $v$, possiamo definire il vettore $\alpha v$ è la freccia ottenuta moltiplicando $v$ per $\alpha$ in modulo e lasciando invariata la direzione se $\alpha > 0$ e invertendo il verso se $\alpha < 0$. Questa operazione è detta \textbf{moltiplicazione per scalare}. Se $\alpha = -1$, otteniamo il vettore $-v$ che ha stesso modulo, stessa direzione ma verso opposto a $v$.\\
+Dato un numero $\alpha\in \mathbb{R}$, per ogni vettore $v$, possiamo definire il vettore $\alpha v$ è la freccia ottenuta moltiplicando $v$ per $|\alpha|$ invertendone il verso se $\alpha < 0$. Questa operazione è detta \textbf{moltiplicazione per scalare}. Quindi se $\alpha = -1$, otteniamo il vettore $-v$ che ha stesso modulo, stessa direzione ma verso opposto a $v$.\\
 L'insieme di tutti i vettori del piano è allora uno spazio vettoriale reale $V$ chiuso rispetto all'operazione di combinazione lineare:
 \begin{equation*}
     u = \alpha v + \beta w
 \end{equation*}
-Per ogni vettore $u$ e $v \in V$ e per ogni $\alpha, \beta \in \mathbb{R}$.
+Per ogni vettore $v$ e $w \in V$ e per ogni $\alpha, \beta \in \mathbb{R}$.
 \subsection{Prodotto scalare e componenti}
 \begin{equation*}
     < \cdot, \cdot > : V \times V \rightarrow \mathbb{C}
@@ -92,7 +92,7 @@ Che soddisfa le seguenti proprietà:
     \item $\forall u,v \in V, <u,v>=<v,u>^{*}$
     \item $\forall u,v,w \in V,\forall \alpha,\beta \in \mathbb{C}, <w,\alpha u+\beta v>=\alpha<w,u>+\beta<w,v>$
 \end{enumerate}
-Due vettori per i quali il prodotto scalare è nullo sono \textit{ortogonali}, sono base ortogonali se sono ortogonali e a norma unitaria ($\lVert <\cdot,\cdot>\rVert_{2}=1$).\\
+Due vettori per i quali il prodotto scalare è nullo sono \textit{ortogonali}, sono base ortonormali se sono ortogonali e a norma unitaria ($\lVert <\cdot,\cdot>\rVert_{2}=1$).\\
 Inoltre riscrivendo $u=u_{0}v_{0}+u_{1}v_{1}$ si ha:
 \begin{equation*}
     <u,u>=<u_{0}v_{0}+u_{1}v_{1},u_{0}v_{0}+u_{1}v_{1}>=u_{0}^{2}+u_{1}^{2}
