@@ -95,7 +95,12 @@ Che soddisfa le seguenti proprietà:
 Due vettori per i quali il prodotto scalare è nullo sono \textit{ortogonali}, sono base ortonormali se sono ortogonali e a norma unitaria ($\lVert <\cdot,\cdot>\rVert_{2}=1$).\\
 Inoltre riscrivendo $u=u_{0}v_{0}+u_{1}v_{1}$ si ha:
 \begin{equation*}
-    <u,u>=<u_{0}v_{0}+u_{1}v_{1},u_{0}v_{0}+u_{1}v_{1}>=u_{0}^{2}+u_{1}^{2}
+    \begin{split}
+        <u,u>&=<u_{0}v_{0}+u_{1}v_{1},u_{0}v_{0}+u_{1}v_{1}>\\
+        &=<u_{0}v_{0},u_{0}v_{0}>+<u_{0}v_{0},u_{1}v_{1}>+<u_{1}v_{1},u_{0}v_{0}>+<u_{1}v_{1},u_{1}v_{1}>\\
+        &=u_{0}^{2}<v_{0},v_{0}>+u_{0}u_{1}<v_{0},v_{1}>+u_{1}u_{0}<v_{1},v_{0}>+u_{1}^{2}<v_{1},v_{1}>\\
+        &=u_{0}^{2}+u_{1}^{2}
+    \end{split}
 \end{equation*}
 Dove $u_{0}=<u,v_{0}>$ e $u_{1}=<u,v_{1}>$
 \subsection{Vettori ket e bra}
@@ -131,7 +136,7 @@ Usando queste notazioni possiamo scrivere il prodotto scalare come:
 \end{equation*}
 \subsection{Prodotto tensore}
 Consideriamo ora due spazi vettoriali $V$ e $W$ con basi, rispettivamente, $A=\left\{|\alpha_{1}\rangle_{V},\ldots,|\alpha_{n}\rangle_{V}\right\}$ e $B=\left\{|\beta_{1}\rangle_{W},\ldots,|\beta_{m}\rangle_{W}\right\}$. Da questa scrittura deduciamo che $V$ è uno spazio vettoriale di dimensione $n$ e $W$ di dimensione $m$.\\
-Il prodotto tendore di $V$ e $W$ viene indicato con $V\otimes W$ ha dimensione $\dim(V\otimes W)=n\text{ }m$  con la base costituita da $n\text{ }m$ elementi della forma $|\alpha_{i}\rangle_{V}\otimes|\beta_{j}\rangle_{W}$.\\
+Il prodotto tensore di $V$ e $W$ viene indicato con $V\otimes W$ ha dimensione $\dim(V\otimes W)=n\text{ }m$  con la base costituita da $n\text{ }m$ elementi della forma $|\alpha_{i}\rangle_{V}\otimes|\beta_{j}\rangle_{W}$.\\
 \textbf{La notazione $|\alpha_{i}\rangle_{V}\otimes|\beta_{j}\rangle_{W}$ può essere scritta come $|\alpha_{i}\beta_{j}\rangle$}.\\
 Proprietà:
 \begin{enumerate}
@@ -285,7 +290,7 @@ Sia $\ket{a} = \alpha\ket{x_{0}}+\beta\ket{x_{1}}$, una trasformazione  unitaria
     \item \textbf{Lineare}: $U\ket{a}=U(\alpha\ket{x_{0}}+\beta\ket{x_{1}}) = \alpha U\ket{x_{0}}+\beta U\ket{x_{1}}$
     \item \textbf{Invertibile  con l'inversa uguale alla trasposta coniugata}: $U^{-1}\ket{a}=U^{\dagger}\ket{a}$
 \end{itemize}
-Quest'ultima proprietà garantice che le trasformazioni unitarie laasciano invariati i prodotti scalari, e quindi anche la norma dei vettori su cui agiscono e le probabilità associate alle misure. Infatti, prendiamo due stati $\ket{a}$ e $\ket{b}$ con prodotto scalare $\braket{b}{a}$. Se questi evolvono secondo un operatore unitario $U$ avremo $\ket{a'}=U\ket{a}$ e $\ket{b'}=U\ket{b}$ ($\bra{b'}=\bra{b}U^{\dagger}$), il prodotto scalare degli stati evoluti sarà $\braket{b'}{a'}=\braket{b}[U^{\dagger}U]{a}=\braket{b}{a}$ perchè $U^{\dagger}U=\text{Identità}$.
+Quest'ultima proprietà garantisce che le trasformazioni unitarie lasciano invariati i prodotti scalari, e quindi anche la norma dei vettori su cui agiscono e le probabilità associate alle misure. Infatti, prendiamo due stati $\ket{a}$ e $\ket{b}$ con prodotto scalare $\braket{b}{a}$. Se questi evolvono secondo un operatore unitario $U$ avremo $\ket{a'}=U\ket{a}$ e $\ket{b'}=U\ket{b}$ ($\bra{b'}=\bra{b}U^{\dagger}$), il prodotto scalare degli stati evoluti sarà $\braket{b'}{a'}=\braket{b}[U^{\dagger}U]{a}=\braket{b}{a}$ perchè $U^{\dagger}U=\text{Identità}$.
 \subsection{Porte quantistiche}
 \subsubsection{Trasformazioni di Pauli}
 Nel nostro caso scegliamo la base canonica $\left\{\ket{0},\ket{1}\right\}$ e definiamo, oltre all'identità $Id$, le tre trasformazioni di Pauli $X,Y,Z$:
