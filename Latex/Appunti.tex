@@ -448,7 +448,7 @@ Dalle equazioni di sopra, questo deve essere uguale a $\braket{\psi\psi}{\varphi
 \begin{equation*}
     \braket{\varphi}{\psi} = \left(\braket{\varphi}{\psi}\right)^{2}
 \end{equation*}
-Quindi può esistere un operatore unitario di copia $U_{COPY}$ solo se gli stati $\ket{psi}$ e $\ket{\varphi}$ sono ortogonali ($\braket{\varphi}{\psi} = 0$) oppure identici ($\braket{\varphi}{\psi} = 1$).\\
+Quindi può esistere un operatore unitario di copia $U_{COPY}$ solo se gli stati $\ket{\psi}$ e $\ket{\varphi}$ sono ortogonali ($\braket{\varphi}{\psi} = 0$) oppure identici ($\braket{\varphi}{\psi} = 1$).\\
 Concludiamo che se gli stati da copiare sono noti e ortogonali è possibile costruire un operatore unitario $U_{COPY}$ che li copi. In genere, però non è possibile copiare stati quantistici qualsiasi; ovvero non esiste nessun operatore $U_{COPY}$ capace di copiare tutti gli stati quantistici. 
 \section{Superdense coding}
 Supponiamo che Alice voglia mandare due bit di informazione classica. Alice e Bob devono condividere uno stato entangled (di Bell)
@@ -820,8 +820,8 @@ L'algoritmo di Grover inizia con la costruzione dello stato quantistico sovrappo
     \end{equation*}
     \item Applicare $n$ porte di Hadarmard
     \item Applicare un cambio di fase a tutti gli stati tranne allo stato $\ket{00\ldots 0}$: \begin{equation*}
-        \ket{x}\xrightarrow{O}(-1)^{\delta_{x_{0}}}\ket{x}
-    \end{equation*} dove $\delta_{x_{0}}$ è il delta di Kronecker ovvero $\ket{0}\rightarrow\ket{0}$ e per $x\neq 0$, $\ket{x}\rightarrow -\ket{x}$
+        \ket{x}\xrightarrow{O}(-1)^{\delta_{x0}}\ket{x}
+    \end{equation*} dove $\delta_{x0}$ è il delta di Kronecker ovvero $\ket{0}\rightarrow\ket{0}$ e per $x\neq 0$, $\ket{x}\rightarrow -\ket{x}$
     \item Applicare $n$ porte di Hadarmard
 \end{enumerate}
 L'algoritmo per la ricerca in un database si riduce alla sua applicazione per un numero $\sqrt{N}=2^{\frac{n}{2}}$ (tldr: applica $G$ per $\sqrt{N}$ volte).
@@ -829,8 +829,8 @@ L'algoritmo per la ricerca in un database si riduce alla sua applicazione per un
 Lo spazio logico può essere diviso in due sottospazi. Quello generato da $\ket{x}$ con $x$ soluzione del nostro problema ($S$) e quelli che non sono soluzione del nostro problema ($\bar{S}$). Supponiamo che ci siano $M$ stati soluzione e, di conseguenza, $N-M$ non-soluzione
 \begin{equation*}
     \begin{split}
-        \ket{\alpha} &= \frac{1}{\sqrt{N-M}}\sum_{x\in\bar{S}}^{\ket{x}} \\
-        \ket{\beta} &= \frac{1}{\sqrt{M}}\sum_{x\in S}^{\ket{x}}
+        \ket{\alpha} &= \frac{1}{\sqrt{N-M}}\sum_{x\in\bar{S}}\ket{x} = \sqrt{N-M}\ket{\alpha} \\
+        \ket{\beta} &= \frac{1}{\sqrt{M}}\sum_{x\in S}\ket{x} = \sqrt{M}\ket{\beta}
     \end{split}
 \end{equation*}
 Con questa notazione lo stato iniziale $\ket{\psi}$ si scrive come
