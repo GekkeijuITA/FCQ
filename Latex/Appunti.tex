@@ -234,7 +234,7 @@ Consideriamo:
 La base $B$ la otteniamo con:
 \begin{equation*}
     \begin{split}
-        \ket{\psi}\oplus\ket{\phi} &= \left(\alpha\ket{0}+\beta\ket{1}\right)\oplus\left(\gamma\ket{0}+\delta\ket{1}\right)\\
+        \ket{\psi}\otimes\ket{\phi} &= \left(\alpha\ket{0}+\beta\ket{1}\right)\otimes\left(\gamma\ket{0}+\delta\ket{1}\right)\\
         &= \alpha\gamma\ket{00}+\alpha\delta\ket{01}+\beta\gamma\ket{10}+\beta\delta\ket{11}
     \end{split}
 \end{equation*}
@@ -242,16 +242,16 @@ Per ricavare la base ci fermiamo al secondo passaggio, quindi avremo $B:\left\{\
 \subsection{Stati a due qubit separabili}
 Usando $\ket{\psi}$ e $\ket{\phi}$ (3.1), a volte conviene scrivere lo stato come:
 \begin{equation*}
-    \ket{\psi}\oplus\ket{\phi} = \alpha\ket{0} \oplus \left(\gamma\ket{0}+\delta\ket{1}\right) + \beta\ket{1} \oplus \left(\gamma\ket{0}+\delta\ket{1}\right)
+    \ket{\psi}\otimes\ket{\phi} = \alpha\ket{0} \otimes \left(\gamma\ket{0}+\delta\ket{1}\right) + \beta\ket{1} \otimes \left(\gamma\ket{0}+\delta\ket{1}\right)
 \end{equation*}
 Perchè in questo modo si possono determinare le probabilità di collasso in modo più semplice:
 \begin{equation*}
     \begin{cases}
-        \text{Se collassa $\alpha$: } |\alpha|^{2},\phi_{0} \rightarrow \ket{0}\oplus\left(\gamma\ket{0}+\delta\ket{1}\right) = \begin{cases}
+        \text{Se collassa $\alpha$: } |\alpha|^{2},\phi_{0} \rightarrow \ket{0}\otimes\left(\gamma\ket{0}+\delta\ket{1}\right) = \begin{cases}
             \text{Se collassa $\gamma$: } |\gamma|^{2},\phi_{0}\rightarrow \ket{00}\\
             \text{Se collassa $\delta$: } |\delta|^{2},\phi_{1}\rightarrow \ket{01}
         \end{cases}\\
-        \text{Se collassa $\beta$: } |\beta|^{2},\phi_{1} \rightarrow \ket{1}\oplus\left(\gamma\ket{0}+\delta\ket{1}\right) = \begin{cases}
+        \text{Se collassa $\beta$: } |\beta|^{2},\phi_{1} \rightarrow \ket{1}\otimes\left(\gamma\ket{0}+\delta\ket{1}\right) = \begin{cases}
             \text{Se collassa $\gamma$: } |\gamma|^{2},\phi_{0}\rightarrow \ket{10}\\
             \text{Se collassa $\delta$: } |\delta|^{2},\phi_{1}\rightarrow \ket{11}
         \end{cases}\\
@@ -260,7 +260,7 @@ Perchè in questo modo si possono determinare le probabilità di collasso in mod
 \subsubsection{Esempio}
 \begin{equation*}
     \begin{split}
-        \ket{\varepsilon} &= \frac{1}{\sqrt{2}}\left(\ket{01}+\ket{10}\right) ?= \ket{\psi} \oplus \ket{\phi} \\
+        \ket{\varepsilon} &= \frac{1}{\sqrt{2}}\left(\ket{01}+\ket{10}\right) ?= \ket{\psi} \otimes \ket{\phi} \\
         &= \frac{1}{\sqrt{2}}\left(\ket{01}\right) + \frac{1}{\sqrt{2}}\left(\ket{10}\right) = \begin{cases}
             \text{Se collassa $\ket{01}$: } \frac{1}{2}, \phi_{0} \rightarrow \ket{01} \rightarrow 1,\phi_{0} \rightarrow \ket{01}\\
             \text{Se collassa $\ket{10}$: } \frac{1}{2}, \phi_{1} \rightarrow \ket{10} \rightarrow 1,\phi_{1} \rightarrow \ket{10}
@@ -269,14 +269,14 @@ Perchè in questo modo si possono determinare le probabilità di collasso in mod
 \end{equation*}
 Possiamo dedurre che se A misura 0, B misura 1 e viceversa.
 \subsection{Stati a due qubit entangled}
-Gli elementi dello spazio vettoriale $A\oplus B$ non sono tutti ottenibili come prodotto tensoriale di due elementi di $A$ e $B$. \\
+Gli elementi dello spazio vettoriale $A\otimes B$ non sono tutti ottenibili come prodotto tensoriale di due elementi di $A$ e $B$. \\
 Un esempio di stati entangled sono gli stati di Bell:
 \begin{equation*}
     \begin{split}
-        &\ket{\phi^{+}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\oplus\ket{0}_{B}+\ket{1}_{A}\oplus\ket{1}_{B}\right) \\
-        &\ket{\phi^{-}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\oplus\ket{0}_{B}-\ket{1}_{A}\oplus\ket{1}_{B}\right) \\
-        &\ket{\psi^{+}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\oplus\ket{1}_{B}+\ket{1}_{A}\oplus\ket{0}_{B}\right) \\
-        &\ket{\psi^{-}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\oplus\ket{1}_{B}-\ket{1}_{A}\oplus\ket{0}_{B}\right) \\
+        &\ket{\phi^{+}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\otimes\ket{0}_{B}+\ket{1}_{A}\otimes\ket{1}_{B}\right) \\
+        &\ket{\phi^{-}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\otimes\ket{0}_{B}-\ket{1}_{A}\otimes\ket{1}_{B}\right) \\
+        &\ket{\psi^{+}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\otimes\ket{1}_{B}+\ket{1}_{A}\otimes\ket{0}_{B}\right) \\
+        &\ket{\psi^{-}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\otimes\ket{1}_{B}-\ket{1}_{A}\otimes\ket{0}_{B}\right) \\
     \end{split}
 \end{equation*}
 Per descrivere lo stato di un sistema a due qubit possiamo alternativamente usare la base canonica $\left\{\ket{00},\ket{01},\ket{10},\ket{11}\right\}$ o la base di Bell $\left\{\ket{\phi^{+}},\ket{\phi^{-}},\ket{\psi^{+}},\ket{\psi^{-}}\right\}$.
@@ -329,10 +329,10 @@ In forma matriciale (nella base canonica $\left\{\ket{0},\ket{1}\right\}$) l'ope
 Consideriamo ora, il controlled-NOT, \texttt{CNOT}, una trasformazione che agisce su 2 qubit, $A$ e $B$. Nella base canonica l'azione del \texttt{CNOT} é:
 \begin{equation*}
     \begin{split}
-        CNOT \ket{0}_{A}\oplus \ket{0}_{B} &= \ket{0}_{A}\oplus \ket{0}_{B} \\
-        CNOT \ket{0}_{A}\oplus \ket{1}_{B} &= \ket{0}_{A}\oplus \ket{1}_{B} \\
-        CNOT \ket{1}_{A}\oplus \ket{0}_{B} &= \ket{1}_{A}\oplus \ket{1}_{B} \\
-        CNOT \ket{1}_{A}\oplus \ket{1}_{B} &= \ket{1}_{A}\oplus \ket{0}_{B} 
+        CNOT \ket{0}_{A}\otimes \ket{0}_{B} &= \ket{0}_{A}\otimes \ket{0}_{B} \\
+        CNOT \ket{0}_{A}\otimes \ket{1}_{B} &= \ket{0}_{A}\otimes \ket{1}_{B} \\
+        CNOT \ket{1}_{A}\otimes \ket{0}_{B} &= \ket{1}_{A}\otimes \ket{1}_{B} \\
+        CNOT \ket{1}_{A}\otimes \ket{1}_{B} &= \ket{1}_{A}\otimes \ket{0}_{B} 
     \end{split}
 \end{equation*}
 In linea generale possiamo scrivere il \texttt{CNOT} come:
@@ -343,7 +343,7 @@ Dove $i$ è il qubit di controllo e $j$ il qubit target. Se il qubit di controll
 L'importanza dell'operatore \texttt{CNOT} risiede nel fatto che può generare entanglement fra due qubit.\\
 \textbf{Esempio}
 \begin{equation*}
-    \ket{00} \xrightarrow{H_{1}} \frac{\ket{0}+\ket{1}}{\sqrt{2}} \oplus \ket{0} = \frac{1}{\sqrt{2}}\left(\ket{00}+\ket{10}\right) \xrightarrow{C_{1}NOT_{2}} \frac{1}{\sqrt{2}}\left(\ket{00}+\ket{11}\right) = \text{Stato di Bell}
+    \ket{00} \xrightarrow{H_{1}} \frac{\ket{0}+\ket{1}}{\sqrt{2}} \otimes \ket{0} = \frac{1}{\sqrt{2}}\left(\ket{00}+\ket{10}\right) \xrightarrow{C_{1}NOT_{2}} \frac{1}{\sqrt{2}}\left(\ket{00}+\ket{11}\right) = \text{Stato di Bell}
 \end{equation*}
 \customfbox{Se eseguo l'operatore \texttt{CNOT} due volte ottengo lo stato iniziale: \begin{equation*}
     CNOT^{2} = Id
@@ -413,13 +413,13 @@ Dove $N=2^{n}$ e anche in questo caso, applicando successivamente un operatore u
 \end{equation*}
 Possiamo manipolare parallelamente tutte le $N$ stringhe logiche.
 \section{Teorema no-cloning}
-Supponiamo di avere un singolo qubit di informazione e che si trovi nello stato $\ket{\psi}=a\ket{0}+b\ket{1}$ (con $|a|^{2}+|b|^{2}=1$). Per copiarlo, prendiamo un secondo qubit inizializzato nello stato $\ket{0}$. Avremo $\ket{\psi0}=a\ket{00}+b\ket{10}$ e applichiamo la porta \texttt{CNOT}
+Supponiamo di avere un singolo qubit di informazione e che si trovi nello stato $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$ (con $|\alpha|^{2}+|\beta|^{2}=1$). Per copiarlo, prendiamo un secondo qubit inizializzato nello stato $\ket{0}$. Avremo $\ket{\psi0}=\alpha\ket{00}+\beta\ket{10}$ e applichiamo la porta \texttt{CNOT}
 \begin{equation*}
-    \ket{\psi0}=a\ket{00}+b\ket{10}\xrightarrow{C_{1}NOT_{2}} a\ket{00}+b\ket{11}
+    \ket{\psi0}=\alpha\ket{00}+\beta\ket{10}\xrightarrow{C_{1}NOT_{2}} \alpha\ket{00}+\beta\ket{11}
 \end{equation*}
-Se consideriamo lo stato più generale $\ket{\psi0}=a\ket{00}+b\ket{10}$ per copiarlo dovremmo avere un operatore il cui risultato sia
+Se consideriamo lo stato più generale $\ket{\psi0}=\alpha\ket{00}+\beta\ket{10}$ per copiarlo dovremmo avere un operatore il cui risultato sia
 \begin{equation*}
-    \ket{\psi\psi} = a^{2}\ket{00}+ab\ket{01}+ab\ket{10}+b^{2}\ket{11}
+    \ket{\psi\psi} = \alpha^{2}\ket{00}+\alpha\beta\ket{01}+\alpha\beta\ket{10}+\beta^{2}\ket{11}
 \end{equation*}
 \customfbox{Se lo stato da copiare è sconosciuto, non è possibile copiarlo.}
 L'operazione di copiatura sarà descritta da un'evoluzione unitaria $U_{COPY}$ tale che
@@ -476,14 +476,14 @@ Supponiamo che Alice (A) e Bob (B) condividano uno stato entangled $\ket{\beta_{
 \begin{equation*}
     \ket{\beta_{00}} = \frac{1}{\sqrt{2}}\left(\ket{0}_{A}\otimes\ket{0}_{B}+\ket{1}_{A}\otimes\ket{1}_{B}\right) = \frac{1}{\sqrt{2}}\left(\ket{00}+\ket{11}\right)
 \end{equation*}
-Supponiamo che Alice abbia aun qubit di informazione $\ket{\psi} = \alpha\ket{0}+\beta\ket{1}$ (con $\lvert \alpha \rvert^{2}+\lvert \beta \rvert^{2}=1$) che vuole mandare a Bob. Per far questo, lo accoppia allo stato entangled $\ket{\beta_{00}}$
+Supponiamo che Alice abbia un qubit di informazione $\ket{\psi} = \alpha\ket{0}+\beta\ket{1}$ (con $\lvert \alpha \rvert^{2}+\lvert \beta \rvert^{2}=1$) che vuole mandare a Bob. Per far questo, lo accoppia allo stato entangled $\ket{\beta_{00}}$
 \begin{equation*}
     \ket{\psi_{0}} = \ket{\psi}\ket{\beta_{00}} = \frac{1}{\sqrt{2}}\left[\alpha\ket{0}(\ket{00}+\ket{11})+\beta\ket{1}(\ket{00}+\ket{11})\right]
 \end{equation*}
 Dove si intende, ad esempio, $\ket{0}\ket{00}=\ket{0}_{A}\ket{0}_{A}\ket{0}_{B}$.\\
-Poi viene applicata una porta \texttt{CNOT} usando il primo qubit A come bit di controllo e il secondo qubit B come bit target (se vediamo i qubit come $\ket{000}$ sarebbe $C_{1}NOT_{3}$)
+Poi viene applicata una porta \texttt{CNOT}:
 \begin{equation*}
-    \ket{\psi_{0}} \xrightarrow{C_{1}NOT_{2}} \ket{\psi_{1}} = \frac{1}{\sqrt{2}}\left[\alpha\ket{0}(\ket{00}+\ket{11})+\beta\ket{1}(\ket{01}+\ket{10})\right]
+    \ket{\psi_{0}} \xrightarrow{C_{1}NOT_{2}} \ket{\psi_{1}} = \frac{1}{\sqrt{2}}\left[\alpha\ket{0}(\ket{00}+\ket{11})+\beta\ket{1}(\ket{10}+\ket{01})\right]
 \end{equation*}
 Successivamente Alice applica una porta di Hadarmard al primo qubit
 \begin{equation*}
@@ -558,11 +558,12 @@ In sostanza, l'applicazione dell'operatore $U_{f}$ lascia invariato sia il primo
     \ket{x}\frac{\ket{0}-\ket{1}}{\sqrt{2}}\rightarrow(-1)^{f(x)}\ket{x}\frac{\ket{0}-\ket{1}}{\sqrt{2}}
 \end{equation*} 
 Possiamo dire che lo stato $\ket{x}\frac{\ket{0}-\ket{1}}{\sqrt{2}}$ è un autovettore dell'operatore $U_{f}$ con autovalore $(-1)^{f(x)}$.\\
-Tornando allo stato iniziale $\ket{\psi_{1}}$, applichiamo l'operatore $U_{f}$ e una porta di Hadarmard sul primo qubit per ottenere
+Tornando allo stato iniziale $\ket{\psi_{1}} = \frac{1}{\sqrt{2}}\left(\ket{0}+\ket{1}\right)\ket{-}$, applichiamo l'operatore $U_{f}$ e, successivamente, una porta di Hadarmard sul primo qubit per ottenere:
 \begin{equation*}
     \begin{split}
-        \ket{\psi_{2}} = U_{f}\ket{\psi_{1}} &= \frac{1}{\sqrt{2}}\left((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1}\right) \\ 
-        &\xrightarrow{H_{1}} \frac{1}{2}\left[\ket{0}\left((-1)^{f(0)}+(-1)^{f(1)}\right)+\ket{1}\left((-1)^{f(0)}-(-1)^{f(1)}\right)\right]
+        \ket{\psi_{2}} = U_{f}\ket{\psi_{1}} &= \frac{1}{\sqrt{2}}\left((-1)^{f(0)}\ket{0}+(-1)^{f(1)}\ket{1}\right)\ket{-} \\  
+        &\xrightarrow{H_{1}} \frac{1}{2}\left[(-1)^{f(0)}(\ket{0}+\ket{1})+(-1)^{f(1)}(\ket{0}-\ket{1})\right]\ket{-}\\
+        &=\frac{1}{2}\left[\ket{0}\left((-1)^{f(0)}+(-1)^{f(1)}\right)+\ket{1}\left((-1)^{f(0)}-(-1)^{f(1)}\right)\right]\ket{-}
     \end{split}
 \end{equation*}
 Se la funzione è costante avremo che $(-1)^{f(0)}+(-1)^{f(1)}=2$ e $(-1)^{f(0)}-(-1)^{f(1)}=0$ quindi $\ket{\psi_{2}}=\ket{0}$. Al contrario se la funzione è bilanciata avremo che $(-1)^{f(0)}+(-1)^{f(1)}=0$ e $(-1)^{f(0)}-(-1)^{f(1)}=\pm2$ quindi $\ket{\psi_{2}}=\pm\ket{1}$ e visto che il segno $\pm$ può essere visto come fase globale, possiamo dire che lo stato finale è $\ket{1}$.
@@ -578,7 +579,7 @@ Vengono applicate $n+1$ porte di Hadarmard ai primi $n+1$ qubit. In questo modo 
 \end{equation*} 
 A questo punto a questo stato viene applicato l'operatore $U_{f}$ (da Bob) che si comporta così $U_{f}:\ket{x,y}\rightarrow\ket{x,y\oplus f(x)}$  e quindi
 \begin{equation*}
-    \ket{\psi_{2}} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}(-1)^{f(x)}\ket{x}\ket{-}
+    \ket{\psi_{1}}=U_{f}\ket{\psi_{1}} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}(-1)^{f(x)}\ket{x}\ket{-}
 \end{equation*}
 Successivamente Alice applica $n$ porte di Hadarmard ai primi $n$ qubit. Per capire come queste agiscono, è utile considerare il singolo qubit $\ket{k}$ con $k=\{0,1\}$. Conosciamo il risultato dal calcolo diretto ma è utile scriverlo in maniera compatta come
 \begin{equation*}
@@ -586,7 +587,7 @@ Successivamente Alice applica $n$ porte di Hadarmard ai primi $n$ qubit. Per cap
 \end{equation*}
 Estendendo questo ragionamento a tutti gli $n$ qubit, otteniamo
 \begin{equation*}
-    H^{\otimes n}\ket{x_{1},x_{2},\ldots,x_{n}} = \sum_{x_{1},x_{2},\ldots,x_{n}}^{1}\frac{(-1)^{x_{1}z_{1}+x_{2}z_{2}+\ldots+x_{n}z_{n}}}{\sqrt{N}}\ket{z_{1},z_{2},\ldots,z_{n}}
+    H^{\otimes n}\ket{x_{1},x_{2},\ldots,x_{n}} = \sum_{z_{1},z_{2},\ldots,z_{n}}^{1}\frac{(-1)^{x_{1}z_{1}+x_{2}z_{2}+\ldots+x_{n}z_{n}}}{\sqrt{N}}\ket{z_{1},z_{2},\ldots,z_{n}}
 \end{equation*}
 Che può essere riscritta in maniera compatta come:
 \begin{equation*}
@@ -594,7 +595,7 @@ Che può essere riscritta in maniera compatta come:
 \end{equation*}
 Ora riscriviamo lo stato $\ket{\psi}$
 \begin{equation*}
-    \ket{\psi_{2}} = \sum_{x=0}^{N-1}\sum_{z=0}^{N-1} \frac{(-1)^{x\cdot z + f(x)}}{N}\ket{z}\ket{-}
+    \ket{\psi_{2}} = \sum_{z=0}^{N-1}\frac{(-1)^{x\cdot z}}{\sqrt{N}}\ket{z}\ket{\psi_{1}} = \sum_{x=0}^{N-1}\sum_{z=0}^{N-1} \frac{(-1)^{x\cdot z + f(x)}}{N}\ket{z}\ket{-}
 \end{equation*}
 Se $z=0$ sappiamo che $x\cdot z = 0$ e se $f$ costante ($f(x)\rightarrow \bar{f}$ ) per tutti i valori di $x$ allora il termine $(-1)^{f(x)}$ non dipende più da $x$
 \begin{equation*}
@@ -675,7 +676,7 @@ Se le equazioni sono linearmente indipendenti esiste una sola stringa $a$ che le
 \chapter{Crittografia quantistica}
 La crittografia quantistica segue uno schema a chiave privata e, in  particolare, si focalizza sullo scambio delle chiavi private (si parla infatti di Quantum Key Distribution o QKD).
 \section{Protocollo BB84}
-Il protocollo BB84 è un protocollo sicuro per la distribuzione di chiavi crittografiiche. Un eventuale hacker (Eve) non può copiare un generico qubit contenente l'informazione a causa del teorema no-cloning e non può misurare un qubit senza pertubarlo a causa del collasso della funzione d'onda.\\
+Il protocollo BB84 è un protocollo sicuro per la distribuzione di chiavi crittografiche. Un eventuale hacker (Eve) non può copiare un generico qubit contenente l'informazione a causa del teorema no-cloning e non può misurare un qubit senza pertubarlo a causa del collasso della funzione d'onda.\\
 Per il protocollo  BB84 possiamo identificare due basi indicate con $B_{1}$ e $B_{2}$:
 \begin{itemize}
     \item $B_{1}:\{\ket{0},\ket{1}\}$
@@ -691,21 +692,16 @@ Per il protocollo  BB84 possiamo identificare due basi indicate con $B_{1}$ e $B
             \textbf{Messaggio} & $\ket{0}$ & $\ket{1}$ & $\ket{-}$ & $\ket{0}$ & $\ket{1}$  \\
         \end{tabular}
     \end{center}
-    \item L'output è certo dato che le stringhe delle basi di Alice e Bob coincidono.
+    \item Bob genera una base e misura il messaggio ricevuto da Alice.     \begin{center}
+        \begin{tabular}{c c c c c c}
+            \textbf{Basi} & 1 & 0 & 1 & 1 & 0  \\
+            \textbf{Misura} & $\ket{+}$ & $\ket{1}$ & $\ket{-}$ & $\ket{+}$ & $\ket{1}$  \\
+        \end{tabular}
+    \end{center} 
     \item Alice e Bob pubblicano apertamente le stringhe delle basi e poi guardano quali sono i bit con le basi in comune e creano la chiave a partire da quei bit.
     \begin{center}
-        \textbf{Alice}
-        \begin{tabular}{c c c c c}
-            0 & 1 & 1 & 0 & 1  \\
-            0 & 0 & 1 & 0 & 0  \\
-            $\ket{0}$ & $\ket{1}$ & $\ket{-}$ & $\ket{0}$ & $\ket{1}$  \\
-        \end{tabular}\\
-        \vspace{0.5em}
-        \textbf{Bob}
-        \begin{tabular}{c c c c c}
-            1 & 0 & 1 & 1 & 0  \\
-            0 & 0 & 1 & 0 & 0  \\
-            $\ket{1}$ & $\ket{0}$ & $\ket{-}$ & $\ket{1}$ & $\ket{0}$  \\
+        \textbf{Inizio della costruzione della chiave:}\begin{tabular}{c c c c c}
+            ? & 0 & 1 & ? & 0  \\
         \end{tabular}
     \end{center}
 \end{enumerate}
@@ -1007,7 +1003,7 @@ Usando questa approssimazione possiamo scrivere
     \end{split}
 \end{equation*}
 \chapter{Introduzione ai codici di correzione degli errori per computer quantistici}
-\section{Correzione degli erorri nei computer classici}
+\section{Correzione degli errori nei computer classici}
 Se, ad esempio, immagazziniamo in un hardisk o mandiamo attraverso una rete una stringa di bit, è possibile che l'inevitabile rumore generi dei \textbf{bit flip} ovvero trasformi alcuni bit che inizialmente avevano valore 0 in bit con valore 1 e viceversa.\\
 Uno dei metodi più semplici e allo stesso tempo più efficaci per ovviare a questi errori è quello di  misurare tutti i bit e usare il protocollo di \textit{voto di maggioranza}: se la maggioranza dei bit ha valore 0 assumiamo che il bit logico sia 0 e correggiamo l'errore trovato; analogamente, se la maggioranza dei bit ha valore 1 assumiamo che il bit logico sia 1.
 \customfbox{
@@ -1074,7 +1070,7 @@ Facendo lo stesso sullo stato senza errori $\ket{\psi}$ abbiamo:
 \begin{equation*}
     Z_{1}\otimes Z_{2}\left(\alpha\ket{000} + \beta\ket{111}\right) = \left(\alpha\ket{000}+\beta\ket{111}\right) = \ket{\psi}
 \end{equation*}
-Concludiamo che entrambi gli stati sono autostati dell'operatore $Z_{1}\otimes Z_{2}$ ma con autovalore ($\lambda$) diverso. Quindi, una misura dell'operatore $Z_{1}\otimes Z_{2}$ non distruggerà la sovrapposizione di stati $\ket{\psi}\text{ e }\ket{\phi}$. Perà nel caso il sistema sia in  $\ket{\psi}$ oppure in $\ket{\phi}$ la misura di $Z_{1}\otimes Z_{2}$ permetterà di estrarre l'informazione desiderata. Se dalla misura otteniamo l'autovalore 1 deduciamo che non ci sono stati errori; se otteniamo $-1$ deduciamo che c'è stato un errore.\\
+Concludiamo che entrambi gli stati sono autostati dell'operatore $Z_{1}\otimes Z_{2}$ ma con autovalore ($\lambda$) diverso. Quindi, una misura dell'operatore $Z_{1}\otimes Z_{2}$ non distruggerà la sovrapposizione di stati $\ket{\psi}\text{ e }\ket{\phi}$. Però nel caso il sistema sia in  $\ket{\psi}$ oppure in $\ket{\phi}$ la misura di $Z_{1}\otimes Z_{2}$ permetterà di estrarre l'informazione desiderata. Se dalla misura otteniamo l'autovalore 1 deduciamo che non ci sono stati errori; se otteniamo $-1$ deduciamo che c'è stato un errore.\\
 Per identificare anche la posizione in cui è avvenuto l'errore è necessario misurare un altro operatore complementare come $Z_{1}\otimes Z_{3}$:
 \begin{equation*}
     Z_{1}\otimes Z_{3}\left(\alpha\ket{100} + \beta\ket{011}\right) = \left(-\alpha\ket{100}-\beta\ket{011}\right) = -\ket{\phi}
